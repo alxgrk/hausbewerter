@@ -1,19 +1,16 @@
 package logo
 
-import react.*
-import react.dom.*
-import kotlinext.js.*
-import kotlinx.html.style
+import react.RBuilder
+import react.dom.div
+import react.dom.img
+import react.dom.jsStyle
 
-@JsModule("src/logo/react.svg")
-external val reactLogo: dynamic
-@JsModule("src/logo/kotlin.svg")
-external val kotlinLogo: dynamic
+@JsModule("src/logo/letter_H.svg")
+external val hLogo: dynamic
 
 fun RBuilder.logo(height: Int = 100) {
     div("Logo") {
         attrs.jsStyle.height = height
-        img(alt = "React logo.logo", src = reactLogo, classes = "Logo-react") {}
-        img(alt = "Kotlin logo.logo", src = kotlinLogo, classes = "Logo-kotlin") {}
+        img(alt = "h-logo", src = hLogo, classes = "Logo-h") {}
     }
 }
