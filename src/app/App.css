@@ -1,0 +1,31 @@
+body {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #111;
+  height: 160px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: medium;
+  color: #111;
+}
+
+/* login */
+.App-login {
+  font-size: medium;
+  background-color: #111;
+}
+
+.App-login .username {
+  margin-top: 10px;
+}
+
+.App-login button {
+  height: 35px;
+  width: 100px;
+  margin-bottom: 15px;
+}
