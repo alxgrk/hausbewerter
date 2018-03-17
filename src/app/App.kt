@@ -1,5 +1,6 @@
 package app
 
+import body.body
 import login.login
 import logo.logo
 import react.RBuilder
@@ -16,13 +17,21 @@ class App : RComponent<RProps, RState>() {
                 +"DIE HAUSBEWERTER"
             }
         }
-        p("App-intro") {
+        div("App-intro") {
             h2 {
-                +"Willkommen bei den Hausbewertern - Ihre Plattform für die Verwaltung Ihrer Hausbewertungen."
+                +"Herzlich Willkommen auf hausbewertung.de"
+            }
+            h3 {
+                +"Ihre Plattform für die Verwaltung Ihrer Hausbewertungen."
             }
         }
-        div("App-login") {
-            login()
+        div ("App-body") {
+            div("Body-text") {
+                body()
+            }
+            div("App-login") {
+                login()
+            }
         }
 
     }

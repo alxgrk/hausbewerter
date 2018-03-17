@@ -1,0 +1,17 @@
+/* login */
+.App-login {
+  font-size: medium;
+  float: left;
+  display: table;
+  margin-right: 20px;
+}
+
+.App-login .username {
+  margin-top: 10px;
+}
+
+.App-login button {
+  height: 35px;
+  width: 100px;
+  margin-bottom: 15px;
+}

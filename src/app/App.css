@@ -14,18 +14,7 @@ body {
   color: #111;
 }
 
-/* login */
-.App-login {
-  font-size: medium;
+.App-body {
+  overflow:auto;
   background-color: #111;
-}
-
-.App-login .username {
-  margin-top: 10px;
-}
-
-.App-login button {
-  height: 35px;
-  width: 100px;
-  margin-bottom: 15px;
 }
