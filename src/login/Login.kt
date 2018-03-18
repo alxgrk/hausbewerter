@@ -1,6 +1,7 @@
 package login
 
 import react.*
+import react.dom.div
 
 interface LoginProps : RProps {
 }
@@ -13,19 +14,21 @@ interface LoginState : RState {
 class Login(props: LoginProps) : RComponent<LoginProps, LoginState>(props) {
 
     override fun RBuilder.render() {
-        usernameInput {
-            setState {
-                username = it.target.toString();
+        div("App-login") {
+            usernameInput {
+                setState {
+                    username = it.target.toString();
+                }
             }
-        }
-        passwordInput {
-            setState {
-                password = it.target.toString();
+            passwordInput {
+                setState {
+                    password = it.target.toString();
+                }
             }
-        }
-        loginButton {
-            // TODO
-            console.log("User ${state.username} logged in.")
+            loginButton {
+                // TODO
+                console.log("User ${state.username} logged in.")
+            }
         }
     }
 }

@@ -2,8 +2,7 @@
 .App-login {
   font-size: medium;
   float: left;
-  display: table;
-  margin-right: 20px;
+  width: 25%;
 }
 
 .App-login .username {
