@@ -17,12 +17,12 @@ class Login(props: LoginProps) : RComponent<LoginProps, LoginState>(props) {
         div("App-login") {
             usernameInput {
                 setState {
-                    username = it.target.toString();
+                    username = it.target.toString()
                 }
             }
             passwordInput {
                 setState {
-                    password = it.target.toString();
+                    password = it.target.toString()
                 }
             }
             loginButton {

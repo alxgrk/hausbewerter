@@ -1,35 +1,40 @@
 package nav
 
 import react.*
-import react.dom.*
+import react.data.NavBarData
+import react.data.NavItemData
+import react.data.NavProps
+import resources.*
 
-interface NavProps : RProps {
-}
-
-interface NavState : RState {
-}
-
-class Nav(props: NavProps) : RComponent<NavProps, NavState>(props) {
+class Nav(props: NavProps) : RComponent<NavProps, RState>(props) {
 
     override fun RBuilder.render() {
-        nav("App-nav") {
-            ul {
-                li {
-                    strong {
-                        a("#") {
-                            +"Home"
-                        }
-                    }
-                }
-                li {
-                    strong {
-                        a("/kontakt") {
-                            +"Kontakt"
-                        }
-                    }
-                }
-            }
-        }
+        navBar(
+                NavBarData(appName()),
+                listOf(
+                        NavItemData(href = "/",
+                                onClick = {
+                                    console.log("click Root")
+                                },
+                                text = "Root"),
+                        NavItemData(
+                                divider = true,
+                                text = ""),
+                        NavItemData(href = "/login",
+                                onClick = {
+                                    console.log("click Login")
+                                },
+                                text = "Login"),
+                        NavItemData(
+                                divider = true,
+                                text = ""),
+                        NavItemData(href = "/contact",
+                                onClick = {
+                                    console.log("click Contact")
+                                },
+                                text = "Contact")
+                )
+        )
     }
 }
 

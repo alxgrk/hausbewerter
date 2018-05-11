@@ -1,9 +1,10 @@
 .Logo {
   position: relative;
-  display: inline-block;
+  height: 100px;
 }
 
 .Logo-h {
-  height: 100%;
+    margin-top: -1em;
+    height: 150%;
 }
 

@@ -1,37 +1,122 @@
 package app
 
 import body.body
+import cards.cardRow
 import login.login
 import logo.logo
 import nav.nav
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
+import react.data.CardData
+import react.data.CardTitleData
+import react.data.ParallaxData
 import react.dom.*
+import resources.*
+
+const val imgHouse = "/images/house-landscape-1.jpg"
+const val imgMountain = "/images/mountain-1.jpg"
 
 class App : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
-        div("App-header") {
-            logo()
-            h1 {
-                +"DIE HAUSBEWERTER"
+        nav()
+        div {
+            parallax(
+                    ParallaxData(imgHouse)
+            )
+            div("App-intro") {
+                logo()
+                h3 {
+                    +appIntroHeader()
+                }
+                h5 {
+                    +appIntroSubHeader()
+                }
+            }
+            div("App-body") {
+                body()
+                parallax(
+                        ParallaxData(imgHouse)
+                )
+                cardRow(listOf(
+                        CardData(title = "",
+                                reveal = bodyWelcome(),
+                                offset = "offset-m2 offset-l3",
+                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
+                            p("card-body") {
+                                i("material-icons center medium") {
+                                    +"store"
+                                }
+                            }
+                            p {
+                                +bodyHeader()
+                            }
+                        },
+                        CardData(title = "",
+                                reveal = bodyWelcome(),
+                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
+                            p("card-body") {
+                                i("material-icons center medium") {
+                                    +"room"
+                                }
+                            }
+                            p {
+                                +bodyHeader()
+                            }
+                        },
+                        CardData(title = "",
+                                reveal = bodyWelcome(),
+                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
+                            p("card-body") {
+                                i("material-icons center medium") {
+                                    +"schedule"
+                                }
+                            }
+                            p {
+                                +bodyHeader()
+                            }
+                        }
+                ))
+                cardRow(listOf(
+                        CardData(title = "",
+                                reveal = bodyWelcome(),
+                                offset = "offset-m2 offset-l3",
+                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
+                            p("card-body") {
+                                i("material-icons center medium") {
+                                    +"euro_symbol"
+                                }
+                            }
+                            p {
+                                +bodyHeader()
+                            }
+                        },
+                        CardData(title = "",
+                                reveal = bodyWelcome(),
+                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
+                            p("card-body") {
+                                i("material-icons center medium") {
+                                    +"lock"
+                                }
+                            }
+                            p {
+                                +bodyHeader()
+                            }
+                        },
+                        CardData(title = "",
+                                reveal = bodyWelcome(),
+                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
+                            p("card-body") {
+                                i("material-icons center medium") {
+                                    +"grade"
+                                }
+                            }
+                            p {
+                                +bodyHeader()
+                            }
+                        }
+                ))
+                login()
             }
         }
-        div("App-intro") {
-            h2 {
-                +"Herzlich Willkommen auf hausbewertung.de"
-            }
-            h3 {
-                +"Ihre Plattform für die Verwaltung Ihrer Hausbewertungen."
-            }
-        }
-        div("App-body") {
-            nav()
-            body()
-            login()
-        }
-
     }
 }
 

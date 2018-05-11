@@ -1,26 +1,27 @@
-.App-nav {
-  float: left;
-  display: table;
-  width: 25%;
-  text-align: left;
-  font-family: sans-serif;
-  font-size: x-large;
+nav {
+    background-color: #255D66;
+}
+nav a:hover,a:focus {
+    color: #ACADCC;
 }
 
-ul {
-    margin-left: 50px;
-    margin-top: 40px;
+#sidenav-overlay {
+    z-index: 996;
 }
 
-li {
+#nav-mobile {
+    z-index: 1000;
+    background-color: rgba(37, 93, 102, 0.98);
+}
+#nav-mobile * {
     color: white;
+    font-size: medium;
 }
 
-a:link, a:visited {
-    color: white;
-    text-decoration: none;
+#nav-mobile a {
+    font-weight: 700;
 }
 
-a:hover {
-    text-decoration: underline;
+#nav-mobile a:hover,a:focus {
+    background-color: #215861;
 }

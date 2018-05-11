@@ -1,6 +1,6 @@
 {
-  "short_name": "React Kotlin App",
-  "name": "Create React Kotlin App Sample",
+  "short_name": "Hausbewerter-App",
+  "name": "\"Die Hausbewerter\" WebApp",
   "icons": [
     {
       "src": "favicon.ico",
