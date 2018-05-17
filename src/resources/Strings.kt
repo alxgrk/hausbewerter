@@ -13,6 +13,8 @@ fun buttonTry() = "Probebewertung"
 fun buttonLogin() = "Login"
 fun placeholderPassword() = "Passwort"
 fun placeholderUsername() = "Benutzername"
+fun registration() = "Registrieren"
+fun forgotPassword() = "Passwort vergessen?"
 
 fun navHome() = "Home"
 fun navContact() = "Kontakt"

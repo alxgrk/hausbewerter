@@ -1,7 +1,11 @@
 package login
 
 import react.*
+import react.dom.a
 import react.dom.div
+import react.dom.h4
+import resources.forgotPassword
+import resources.registration
 
 interface LoginProps : RProps {
 }
@@ -14,7 +18,7 @@ interface LoginState : RState {
 class Login(props: LoginProps) : RComponent<LoginProps, LoginState>(props) {
 
     override fun RBuilder.render() {
-        div("App-login") {
+        div("login") {
             usernameInput {
                 setState {
                     username = it.target.toString()
@@ -25,6 +29,8 @@ class Login(props: LoginProps) : RComponent<LoginProps, LoginState>(props) {
                     password = it.target.toString()
                 }
             }
+            a(href = "/", classes = "login-links") { +registration() }
+            a(href = "/", classes = "login-links") { +forgotPassword() }
             loginButton {
                 // TODO
                 console.log("User ${state.username} logged in.")

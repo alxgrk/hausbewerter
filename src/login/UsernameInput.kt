@@ -18,6 +18,7 @@ class UsernameInput(props: UsernameProps) : RComponent<UsernameProps, RState>(pr
     override fun RBuilder.render() {
         input(
                 InputData(label = placeholderUsername(),
+                        icon = "account_circle",
                         onChangeFunction = props.onUsernameChanged)
         )
     }

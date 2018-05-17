@@ -27,11 +27,10 @@ data class NavBarData(
         override var right: Boolean = true,
         override var left: Boolean = false,
         override var fixed: Boolean = true
-): NavBarProps
+) : NavBarProps
 
 data class NavItemData(
         override var href: String = "/",
         override var onClick: () -> Unit = {},
-        override var divider: Boolean = false,
-        val text: String
-): NavItemProps
+        override var divider: Boolean = false
+) : NavItemProps

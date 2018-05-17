@@ -1,5 +1,6 @@
 package react
 
+import nav.navBrandCentralizer
 import react.data.*
 
 fun RBuilder.button(data: ButtonData) = child(Button::class) {
@@ -12,25 +13,24 @@ fun RBuilder.button(data: ButtonData) = child(Button::class) {
     +data.text
 }
 
-fun RBuilder.navBar(data: NavBarData, children: List<NavItemData>) = child(NavBar::class) {
+fun RBuilder.navBar(data: NavBarData, handler: RHandler<RProps>) = child(NavBar::class) {
+    navBrandCentralizer()
     attrs {
         this.brand = data.brand
         this.right = data.right
         this.left = data.left
         this.fixed = data.fixed
     }
-    children.forEach {
-        navItem(it)
-    }
+    handler(this)
 }
 
-fun RBuilder.navItem(data: NavItemData) = child(NavItem::class) {
+fun RBuilder.navItem(data: NavItemData, handler: RHandler<RProps>) = child(NavItem::class) {
     attrs {
         this.href = data.href
         this.onClick = data.onClick
         this.divider = data.divider
     }
-    +data.text
+    handler(this)
 }
 
 fun RBuilder.parallax(data: ParallaxData) = child(Parallax::class) {
@@ -45,6 +45,7 @@ fun RBuilder.input(data: InputData) = child(Input::class) {
         this.placeholder = data.placeholder ?: undefined
         this.type = data.type
         this.onChangeFunction = data.onChangeFunction
+        this.icon = data.icon
     }
 }
 
@@ -54,7 +55,7 @@ fun RBuilder.card(data: CardData) = child(Card::class) {
         this.title = data.title
     }
     cardTitle(data.headerData)
-    data.child.invoke(this)
+    data.child(this)
 }
 
 fun RBuilder.cardTitle(data: CardTitleData) = child(CardTitle::class) {
@@ -79,6 +80,6 @@ fun RBuilder.col(data: ColData) = child(Col::class) {
         this.l = data.l
         this.className = data.className
     }
-    data.handler.invoke(this)
+    data.handler(this)
 }
 

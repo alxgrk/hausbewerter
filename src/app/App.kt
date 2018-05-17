@@ -114,7 +114,6 @@ class App : RComponent<RProps, RState>() {
                             }
                         }
                 ))
-                login()
             }
         }
     }
