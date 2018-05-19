@@ -83,3 +83,11 @@ fun RBuilder.col(data: ColData) = child(Col::class) {
     data.handler(this)
 }
 
+fun RBuilder.footer(data: FooterData) = child(Footer::class) {
+    attrs {
+        this.copyrights = data.copyrights
+        this.links = data.links
+        this.moreLinks = data.moreLinks
+    }
+    data.children(this)
+}

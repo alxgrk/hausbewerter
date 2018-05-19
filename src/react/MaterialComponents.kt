@@ -40,3 +40,7 @@ external class Row : React.Component<RowProps, RState> {
 external class Col : React.Component<ColProps, RState> {
     override fun render(): ReactElement?
 }
+
+external class Footer : React.Component<FooterProps, RState> {
+    override fun render(): ReactElement?
+}

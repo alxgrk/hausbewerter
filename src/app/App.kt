@@ -2,13 +2,10 @@ package app
 
 import body.body
 import cards.cardRow
-import login.login
 import logo.logo
 import nav.nav
 import react.*
-import react.data.CardData
-import react.data.CardTitleData
-import react.data.ParallaxData
+import react.data.*
 import react.dom.*
 import resources.*
 
@@ -114,6 +111,20 @@ class App : RComponent<RProps, RState>() {
                             }
                         }
                 ))
+                footer(FooterData(
+                        copyrights = "© 2018 Copyright Text",
+                        links = createLinks(listOf(
+                                Pair("#", "About"),
+                                Pair("#", "Login"),
+                                Pair("#", "Help")
+                        )),
+                        moreLinks = React.createElement("a", object : RProps {
+                            var href = "#"
+                        }, "Impressum")
+                ) {
+                    h5 { +footerHeader() }
+                    p { +footerContent() }
+                })
             }
         }
     }

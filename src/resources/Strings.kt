@@ -18,3 +18,6 @@ fun forgotPassword() = "Passwort vergessen?"
 
 fun navHome() = "Home"
 fun navContact() = "Kontakt"
+
+fun footerHeader() = "Footer Content"
+fun footerContent() = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
