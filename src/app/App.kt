@@ -1,116 +1,25 @@
 package app
 
-import body.body
-import cards.cardRow
-import logo.logo
+import home.home
+import home.Home
 import nav.nav
 import react.*
-import react.data.*
-import react.dom.*
-import resources.*
-
-const val imgHouse = "/images/house-landscape-1.jpg"
-const val imgMountain = "/images/mountain-1.jpg"
+import react.data.FooterData
+import react.data.createLinks
+import react.dom.h5
+import react.dom.div
+import react.dom.p
+import resources.footerContent
+import resources.footerHeader
 
 class App : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
-        nav()
-        div {
-            parallax(
-                    ParallaxData(imgHouse)
-            )
-            div("App-intro") {
-                logo()
-                h3 {
-                    +appIntroHeader()
+        browserRouter {
+            div {
+                nav()
+                switch {
+                  route("/", Home::class, exact = true)
                 }
-                h5 {
-                    +appIntroSubHeader()
-                }
-            }
-            div("App-body") {
-                body()
-                parallax(
-                        ParallaxData(imgHouse)
-                )
-                cardRow(listOf(
-                        CardData(title = "",
-                                reveal = bodyWelcome(),
-                                offset = "offset-m2 offset-l3",
-                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
-                            p("card-body") {
-                                i("material-icons center medium") {
-                                    +"store"
-                                }
-                            }
-                            p {
-                                +bodyHeader()
-                            }
-                        },
-                        CardData(title = "",
-                                reveal = bodyWelcome(),
-                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
-                            p("card-body") {
-                                i("material-icons center medium") {
-                                    +"room"
-                                }
-                            }
-                            p {
-                                +bodyHeader()
-                            }
-                        },
-                        CardData(title = "",
-                                reveal = bodyWelcome(),
-                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
-                            p("card-body") {
-                                i("material-icons center medium") {
-                                    +"schedule"
-                                }
-                            }
-                            p {
-                                +bodyHeader()
-                            }
-                        }
-                ))
-                cardRow(listOf(
-                        CardData(title = "",
-                                reveal = bodyWelcome(),
-                                offset = "offset-m2 offset-l3",
-                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
-                            p("card-body") {
-                                i("material-icons center medium") {
-                                    +"euro_symbol"
-                                }
-                            }
-                            p {
-                                +bodyHeader()
-                            }
-                        },
-                        CardData(title = "",
-                                reveal = bodyWelcome(),
-                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
-                            p("card-body") {
-                                i("material-icons center medium") {
-                                    +"lock"
-                                }
-                            }
-                            p {
-                                +bodyHeader()
-                            }
-                        },
-                        CardData(title = "",
-                                reveal = bodyWelcome(),
-                                headerData = CardTitleData(image = imgMountain, text = "Test")) {
-                            p("card-body") {
-                                i("material-icons center medium") {
-                                    +"grade"
-                                }
-                            }
-                            p {
-                                +bodyHeader()
-                            }
-                        }
-                ))
                 footer(FooterData(
                         copyrights = "© 2018 Copyright Text",
                         links = createLinks(listOf(
