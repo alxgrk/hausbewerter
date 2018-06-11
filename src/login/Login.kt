@@ -3,7 +3,6 @@ package login
 import react.*
 import react.dom.a
 import react.dom.div
-import react.dom.h4
 import resources.forgotPassword
 import resources.registration
 

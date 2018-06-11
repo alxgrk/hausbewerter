@@ -1,9 +1,14 @@
 package cards
 
-import react.*
-import react.data.CardData
-import react.data.ColData
-import react.data.RowData
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
+import react.material.card
+import react.material.data.CardData
+import react.material.data.ColData
+import react.material.data.RowData
+import react.material.row
 
 interface CardRowProps : RProps {
     var cards: List<CardData>

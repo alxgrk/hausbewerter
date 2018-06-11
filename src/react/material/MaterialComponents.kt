@@ -1,8 +1,9 @@
 @file:JsModule("react-materialize")
 
-package react
+package react.material
 
-import react.data.*
+import react.RState
+import react.ReactElement
 
 @JsName("Navbar")
 external class NavBar : React.Component<NavBarProps, RState> {

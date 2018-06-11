@@ -1,4 +1,4 @@
-package react.data
+package react.material.data
 
 import react.RProps
 

@@ -1,9 +1,16 @@
 package body
 
-import react.*
-import react.data.ButtonData
-import resources.*
-import react.dom.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
+import react.dom.div
+import react.dom.h2
+import react.material.button
+import react.material.data.ButtonData
+import resources.bodyHeader
+import resources.bodyWelcome
+import resources.buttonTry
 
 
 class Body : RComponent<RProps, RState>() {

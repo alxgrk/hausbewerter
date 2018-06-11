@@ -1,8 +1,8 @@
-package react.data
+package react.material.data
 
-import react.CardTitle
 import react.RHandler
 import react.RProps
+import react.material.CardTitle
 
 // INTERFACES
 

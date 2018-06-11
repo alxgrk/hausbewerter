@@ -6,8 +6,8 @@ import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.p
-import react.data.ButtonData
-import react.button
+import react.material.button
+import react.material.data.ButtonData
 import resources.buttonLogin
 
 interface LoginButtonProps : RProps {

@@ -1,12 +1,17 @@
 package nav
 
 import login.login
-import react.*
-import react.data.NavBarData
-import react.data.NavItemData
-import react.data.NavProps
-import react.dom.*
-import resources.*
+import react.RBuilder
+import react.RComponent
+import react.RState
+import react.dom.div
+import react.dom.i
+import react.material.data.NavBarData
+import react.material.data.NavItemData
+import react.material.data.NavProps
+import react.material.navBar
+import react.material.navItem
+import resources.appName
 
 class Nav(props: NavProps) : RComponent<NavProps, RState>(props) {
 

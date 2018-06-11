@@ -1,7 +1,10 @@
 package nav
 
 import org.w3c.dom.Element
-import react.*
+import react.RBuilder
+import react.RComponent
+import react.RProps
+import react.RState
 import react.dom.findDOMNode
 
 class NavBrandCentralizer : RComponent<RProps, RState>() {

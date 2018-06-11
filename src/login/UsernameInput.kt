@@ -5,8 +5,8 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.data.InputData
-import react.input
+import react.material.data.InputData
+import react.material.input
 import resources.placeholderUsername
 
 interface UsernameProps : RProps {

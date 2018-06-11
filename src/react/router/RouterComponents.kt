@@ -1,7 +1,10 @@
 @file:JsModule("react-router-dom")
-package react
+package react.router
 
-import react.*
+import react.RClass
+import react.RProps
+import react.RState
+import react.ReactElement
 
 external class BrowserRouter : React.Component<RProps, RState> {
     override fun render(): ReactElement?

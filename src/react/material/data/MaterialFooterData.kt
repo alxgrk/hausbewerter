@@ -1,8 +1,8 @@
-package react.data
+package react.material.data
 
-import org.w3c.dom.Node
-import react.*
-import react.dom.*
+import react.RHandler
+import react.RProps
+import react.ReactElement
 
 // INTERFACES
 

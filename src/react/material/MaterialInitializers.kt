@@ -1,7 +1,9 @@
-package react
+package react.material
 
 import nav.navBrandCentralizer
-import react.data.*
+import react.RBuilder
+import react.RHandler
+import react.RProps
 
 fun RBuilder.button(data: ButtonData) = child(Button::class) {
     attrs {

@@ -1,14 +1,17 @@
 package app
 
-import home.home
 import home.Home
 import nav.nav
 import react.*
-import react.data.FooterData
-import react.data.createLinks
-import react.dom.h5
 import react.dom.div
+import react.dom.h5
 import react.dom.p
+import react.material.data.FooterData
+import react.material.data.createLinks
+import react.material.footer
+import react.router.browserRouter
+import react.router.route
+import react.router.switch
 import resources.footerContent
 import resources.footerHeader
 

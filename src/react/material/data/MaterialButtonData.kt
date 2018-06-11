@@ -1,4 +1,4 @@
-package react.data
+package react.material.data
 
 import org.w3c.dom.events.Event
 import react.RProps
