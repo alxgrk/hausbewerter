@@ -1,7 +1,9 @@
 package app
 
+import about.About
 import home.Home
 import nav.nav
+import questionnaire.Questionnaire
 import react.*
 import react.dom.div
 import react.dom.h5
@@ -21,7 +23,9 @@ class App : RComponent<RProps, RState>() {
             div {
                 nav()
                 switch {
-                  route("/", Home::class, exact = true)
+                    route("/", Home::class, exact = true)
+                    route("/about", About::class)
+                    route("/questionnaire", Questionnaire::class)
                 }
                 footer(FooterData(
                         copyrights = "© 2018 Copyright Text",

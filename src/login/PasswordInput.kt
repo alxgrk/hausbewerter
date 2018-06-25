@@ -20,7 +20,7 @@ class PasswordInput(props: PasswordProps) : RComponent<PasswordProps, RState>(pr
                 InputData(label = placeholderPassword(),
                         type = "password",
                         icon = "lock_outline",
-                        onChangeFunction = props.onPasswordChanged)
+                        onChange = props.onPasswordChanged)
         )
     }
 }

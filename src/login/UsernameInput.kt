@@ -19,7 +19,7 @@ class UsernameInput(props: UsernameProps) : RComponent<UsernameProps, RState>(pr
         input(
                 InputData(label = placeholderUsername(),
                         icon = "account_circle",
-                        onChangeFunction = props.onUsernameChanged)
+                        onChange = props.onUsernameChanged)
         )
     }
 }

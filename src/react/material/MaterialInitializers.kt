@@ -1,14 +1,17 @@
 package react.material
 
 import nav.navBrandCentralizer
-import react.RBuilder
-import react.RHandler
-import react.RProps
+import org.w3c.dom.events.Event
+import react.*
+import react.material.data.*
+import react.router.Link
+import react.router.link
 
-fun RBuilder.button(data: ButtonData) = child(Button::class) {
+fun RBuilder.button(data: ButtonData, onClick: (Event) -> Unit) = child(Button::class) {
     attrs {
         this.waves = data.waves
         this.floating = data.floating
+        this.onClick = onClick
         this.node = data.node ?: undefined
         this.href = data.href ?: undefined
     }
@@ -18,7 +21,11 @@ fun RBuilder.button(data: ButtonData) = child(Button::class) {
 fun RBuilder.navBar(data: NavBarData, handler: RHandler<RProps>) = child(NavBar::class) {
     navBrandCentralizer()
     attrs {
-        this.brand = data.brand
+        this.brand = React.createElement(Link::class.js.unsafeCast<RClass<RProps>>(),
+                object : RProps {
+                    var to = data.href
+                },
+                data.text)
         this.right = data.right
         this.left = data.left
         this.fixed = data.fixed
@@ -28,7 +35,6 @@ fun RBuilder.navBar(data: NavBarData, handler: RHandler<RProps>) = child(NavBar:
 
 fun RBuilder.navItem(data: NavItemData, handler: RHandler<RProps>) = child(NavItem::class) {
     attrs {
-        this.href = data.href
         this.onClick = data.onClick
         this.divider = data.divider
     }
@@ -46,7 +52,7 @@ fun RBuilder.input(data: InputData) = child(Input::class) {
         this.label = data.label
         this.placeholder = data.placeholder ?: undefined
         this.type = data.type
-        this.onChangeFunction = data.onChangeFunction
+        this.onChange = data.onChange
         this.icon = data.icon
     }
 }

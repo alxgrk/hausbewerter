@@ -3,10 +3,7 @@ package home
 import body.body
 import cards.cardRow
 import logo.logo
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.*
 import react.material.data.CardData
 import react.material.data.CardTitleData
@@ -42,7 +39,7 @@ class Home : RComponent<RProps, RState>() {
                 )
                 cardRow(listOf(
                         CardData(title = "",
-                                reveal = bodyWelcome(),
+                                reveal = React.createElement("p", object: RProps {} , bodyWelcome()),
                                 offset = "offset-m2 offset-l3",
                                 headerData = CardTitleData(image = imgMountain, text = "Test")) {
                             p("card-body") {
@@ -55,7 +52,7 @@ class Home : RComponent<RProps, RState>() {
                             }
                         },
                         CardData(title = "",
-                                reveal = bodyWelcome(),
+                                reveal = React.createElement("p", object: RProps {} , bodyWelcome()),
                                 headerData = CardTitleData(image = imgMountain, text = "Test")) {
                             p("card-body") {
                                 i("material-icons center medium") {
@@ -67,7 +64,7 @@ class Home : RComponent<RProps, RState>() {
                             }
                         },
                         CardData(title = "",
-                                reveal = bodyWelcome(),
+                                reveal = React.createElement("p", object: RProps {} , bodyWelcome()),
                                 headerData = CardTitleData(image = imgMountain, text = "Test")) {
                             p("card-body") {
                                 i("material-icons center medium") {
@@ -81,7 +78,7 @@ class Home : RComponent<RProps, RState>() {
                 ))
                 cardRow(listOf(
                         CardData(title = "",
-                                reveal = bodyWelcome(),
+                                reveal = React.createElement("p", object: RProps {} , bodyWelcome()),
                                 offset = "offset-m2 offset-l3",
                                 headerData = CardTitleData(image = imgMountain, text = "Test")) {
                             p("card-body") {
@@ -94,7 +91,7 @@ class Home : RComponent<RProps, RState>() {
                             }
                         },
                         CardData(title = "",
-                                reveal = bodyWelcome(),
+                                reveal = React.createElement("p", object: RProps {} , bodyWelcome()),
                                 headerData = CardTitleData(image = imgMountain, text = "Test")) {
                             p("card-body") {
                                 i("material-icons center medium") {
@@ -106,7 +103,7 @@ class Home : RComponent<RProps, RState>() {
                             }
                         },
                         CardData(title = "",
-                                reveal = bodyWelcome(),
+                                reveal = React.createElement("p", object: RProps {} , bodyWelcome()),
                                 headerData = CardTitleData(image = imgMountain, text = "Test")) {
                             p("card-body") {
                                 i("material-icons center medium") {

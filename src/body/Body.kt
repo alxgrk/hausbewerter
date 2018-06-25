@@ -6,8 +6,10 @@ import react.RProps
 import react.RState
 import react.dom.div
 import react.dom.h2
+import react.dom.link
 import react.material.button
 import react.material.data.ButtonData
+import react.router.link
 import resources.bodyHeader
 import resources.bodyWelcome
 import resources.buttonTry
@@ -23,9 +25,11 @@ class Body : RComponent<RProps, RState>() {
                 +bodyWelcome()
             }
             div("Body-try-button") {
-                button(
-                        ButtonData("light", buttonTry())
-                )
+                link(to = "/questionnaire") {
+                    button(
+                            ButtonData("light", buttonTry())
+                    ) {}
+                }
             }
         }
     }

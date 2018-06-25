@@ -1,9 +1,6 @@
 package react.router
 
-import react.RBuilder
-import react.RClass
-import react.RHandler
-import react.RProps
+import react.*
 import kotlin.reflect.KClass
 
 fun RBuilder.browserRouter(handler: RHandler<RProps>) = child(BrowserRouter::class, handler)

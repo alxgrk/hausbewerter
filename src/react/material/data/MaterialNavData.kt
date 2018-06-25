@@ -1,6 +1,8 @@
 package react.material.data
 
+import org.w3c.dom.CanvasText
 import react.RProps
+import react.ReactElement
 
 // INTERFACES
 
@@ -8,14 +10,15 @@ interface NavProps : RProps {
 }
 
 interface NavBarProps : RProps {
-    var brand: String
+    var href: String
     var right: Boolean
     var left: Boolean
     var fixed: Boolean
+    var text: String
+    var brand: ReactElement?
 }
 
 interface NavItemProps : RProps {
-    var href: String
     var onClick: () -> Unit
     var divider: Boolean
 }
@@ -23,14 +26,15 @@ interface NavItemProps : RProps {
 // IMPLEMENTATIONS
 
 data class NavBarData(
-        override var brand: String,
+        override var href: String = "/",
         override var right: Boolean = true,
         override var left: Boolean = false,
-        override var fixed: Boolean = true
+        override var fixed: Boolean = true,
+        override var text: String,
+        override var brand: ReactElement? = null
 ) : NavBarProps
 
 data class NavItemData(
-        override var href: String = "/",
         override var onClick: () -> Unit = {},
         override var divider: Boolean = false
 ) : NavItemProps

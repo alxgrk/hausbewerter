@@ -20,7 +20,8 @@ class LoginButton(props: LoginButtonProps) : RComponent<LoginButtonProps, RState
 
         p {
             button(
-                    ButtonData("light", buttonLogin(), props.onClick)
+                    data = ButtonData("light", buttonLogin()),
+                    onClick = props.onClick
             )
         }
     }

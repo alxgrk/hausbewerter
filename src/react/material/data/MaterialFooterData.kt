@@ -2,6 +2,7 @@ package react.material.data
 
 import react.RHandler
 import react.RProps
+import react.React
 import react.ReactElement
 
 // INTERFACES
@@ -23,7 +24,9 @@ data class FooterData(
 
 fun createLinks(links: List<Pair<String, String>>): ReactElement {
     val listEntries = links.map {
-        React.createElement("li", object : RProps {},
+        React.createElement("li", object : RProps {
+            var key = it.second
+        },
                 React.createElement("a",
                         object : RProps {
                             var href = it.first
