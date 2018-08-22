@@ -9,7 +9,7 @@ import react.material.CardTitle
 
 interface CardProps : RProps {
     var title: String
-    var reveal: ReactElement
+    var reveal: ReactElement?
     var offset: String
     var header: CardTitle?
 }
@@ -24,10 +24,10 @@ interface CardTitleProps : RProps {
 
 data class CardData(
         override var title: String,
-        override var reveal: ReactElement,
+        override var reveal: ReactElement? = null,
         override var offset: String = "",
         override var header: CardTitle? = null,
-        var headerData: CardTitleData,
+        var headerData: CardTitleData? = null,
         var child: RHandler<RProps>
 ) : CardProps
 

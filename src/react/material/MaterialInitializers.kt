@@ -59,10 +59,10 @@ fun RBuilder.input(data: InputData) = child(Input::class) {
 
 fun RBuilder.card(data: CardData) = child(Card::class) {
     attrs {
-        this.reveal = data.reveal
+        this.reveal = data.reveal ?: undefined
         this.title = data.title
     }
-    cardTitle(data.headerData)
+    if (data.headerData != null) cardTitle(data.headerData!!)
     data.child(this)
 }
 

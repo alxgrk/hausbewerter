@@ -1,0 +1,11 @@
+.questionnaire {
+    height: 100vh;
+}
+
+.questionnaire .card {
+    max-width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+}

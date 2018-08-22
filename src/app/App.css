@@ -1,7 +1,17 @@
+html {
+    height: 100%;
+}
+
 body {
-  padding: 3em 2em;
-  text-align: center;
-  /*overflow: auto;*/
+    min-height: 100%;
+
+    padding: 3em 2em;
+    text-align: center;
+    /*overflow: auto;*/
+}
+
+.content {
+    margin-top: auto;
 }
 
 /* FOOTER */

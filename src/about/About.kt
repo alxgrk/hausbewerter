@@ -1,10 +1,12 @@
 package about
 
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.*
+import react.material.data.FooterData
+import react.material.data.createLinks
+import react.material.footer
+import resources.footerContent
+import resources.footerHeader
 
 class About : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
@@ -354,6 +356,20 @@ class About : RComponent<RProps, RState>() {
                 }
             }
         }
+        footer(FooterData(
+                copyrights = "© 2018 Copyright Text",
+                links = createLinks(listOf(
+                        Pair("#", "About"),
+                        Pair("#", "Login"),
+                        Pair("#", "Help")
+                )),
+                moreLinks = React.createElement("a", object : RProps {
+                    var href = "#"
+                }, "Impressum")
+        ) {
+            h5 { +footerHeader() }
+            p { +footerContent() }
+        })
     }
 }
 
