@@ -8,6 +8,7 @@
 
 # production
 /build
+/out
 
 # misc
 .DS_Store
@@ -17,7 +18,6 @@
 .env.production.local
 
 # IDE
-.idea/
 *.iml
 
 npm-debug.log*

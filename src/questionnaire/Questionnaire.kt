@@ -14,7 +14,7 @@ import resources.bodyHeader
 
 class Questionnaire : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
-        div(classes = "questionnaire") {
+        div(classes = "questionnaire container valign-wrapper") {
             card(CardData(title = "",
                     offset = "offset-m2 offset-l3") {
                 p("card-body") {
