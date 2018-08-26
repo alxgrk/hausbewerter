@@ -18,7 +18,9 @@
 .env.production.local
 
 # IDE
-*.iml
+.idea/workspace.xml
+.idea/uiDesigner.xml
+projectFilesBackup/*.iml
 
 npm-debug.log*
 yarn-debug.log*

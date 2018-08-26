@@ -6,22 +6,21 @@
     "pact_do_not_track": true
   },
   "dependencies": {
-    "@types/react": "^16.3.14",
-    "@types/react-burger-menu": "^2.2.0",
     "kotlin": "^1.2.51",
     "kotlinx-coroutines-core": "^0.24.0",
+    "path": "^0.12.7",
     "react": "^16.2.0",
-    "react-burger-menu": "^2.3.0",
     "react-dom": "^16.2.0",
     "react-materialize": "^2.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@jetbrains/kotlin-mocha": "^3.0.1-pre.48",
     "@jetbrains/ts2kt-automator": "^1.0.12",
     "@pact-foundation/pact-node": "^6.19.10",
-    "pact": "^4.3.2",
+    "chai": "^4.1.2",
     "mocha": "^3.1.0",
+    "pact": "^4.3.2",
     "react-scripts-kotlin": "2.1.5"
   },
   "scripts": {
