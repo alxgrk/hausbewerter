@@ -2,4 +2,5 @@
 
 package pact
 
+@JsModule("pact")
 external fun pact(opts: pact.PactOptions): pact.PactProvider = definedExternally
