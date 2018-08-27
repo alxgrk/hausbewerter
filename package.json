@@ -15,12 +15,8 @@
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
-    "@jetbrains/kotlin-mocha": "^3.0.1-pre.48",
     "@jetbrains/ts2kt-automator": "^1.0.12",
     "@pact-foundation/pact-node": "^6.19.10",
-    "chai": "^4.1.2",
-    "mocha": "^3.1.0",
-    "pact": "^4.3.2",
     "react-scripts-kotlin": "2.1.5"
   },
   "scripts": {
