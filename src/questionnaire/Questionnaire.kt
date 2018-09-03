@@ -1,29 +1,36 @@
 package questionnaire
 
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.div
-import react.dom.i
 import react.dom.p
 import react.material.card
 import react.material.data.CardData
-import resources.bodyHeader
+import types.axios.RefResolver.axiosRefResolver
+import types.axios.axios
+import kotlin.js.Promise
 
+interface QuestionnaireState : RState {
+    var body: String
+}
 
-class Questionnaire : RComponent<RProps, RState>() {
+class Questionnaire : RComponent<RProps, QuestionnaireState>() {
+
+    override fun componentWillMount() {
+        axiosRefResolver.get<String>("https://virtserver.swaggerhub.com/hausbewerter/hausbewerter/1.0.0/fragebogen/123")
+                .then { response ->
+                    console.log("received response ${JSON.stringify(response)}")
+                    setState {
+                        body = JSON.stringify(response.data)
+                    }
+                }
+    }
+
     override fun RBuilder.render() {
         div(classes = "questionnaire container valign-wrapper") {
             card(CardData(title = "",
                     offset = "offset-m2 offset-l3") {
-                p("card-body") {
-                    i("material-icons center medium") {
-                        +"store"
-                    }
-                }
                 p {
-                    +bodyHeader()
+                    +state.body
                 }
             })
         }
