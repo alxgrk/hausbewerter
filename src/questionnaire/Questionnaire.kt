@@ -26,13 +26,6 @@ class Questionnaire : RComponent<RProps, QuestionnaireState>() {
     }
 
     override fun RBuilder.render() {
-        div(classes = "questionnaire container valign-wrapper") {
-            card(CardData(title = "",
-                    offset = "offset-m2 offset-l3") {
-                p {
-                    +state.body
-                }
-            })
-        }
+        questionCard(state.body) {  }
     }
 }

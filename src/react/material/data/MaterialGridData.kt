@@ -6,7 +6,7 @@ import react.dom.WithClassName
 
 // INTERFACES
 
-interface RowProps : RProps {
+interface RowProps : WithClassName {
 }
 
 interface ColProps : WithClassName {
@@ -18,7 +18,8 @@ interface ColProps : WithClassName {
 // IMPLEMENTATIONS
 
 data class RowData(
-        var children: List<ColData> = listOf()
+        var children: List<ColData> = listOf(),
+        override var className: String? = ""
 ) : RowProps
 
 data class ColData(

@@ -14,6 +14,7 @@ fun RBuilder.button(data: ButtonData, onClick: (Event) -> Unit) = child(Button::
         this.onClick = onClick
         this.node = data.node ?: undefined
         this.href = data.href ?: undefined
+        this.className = data.className ?: undefined
     }
     +data.text
 }
@@ -76,6 +77,9 @@ fun RBuilder.cardTitle(data: CardTitleData) = child(CardTitle::class) {
 }
 
 fun RBuilder.row(data: RowData) = child(Row::class) {
+    attrs {
+        this.className = data.className
+    }
     data.children.forEach {
         col(it)
     }
