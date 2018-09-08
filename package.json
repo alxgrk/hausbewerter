@@ -11,6 +11,7 @@
     "path": "^0.12.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-jsonschema-form": "^1.0.4",
     "react-materialize": "^2.2.0",
     "react-router-dom": "^4.3.1"
   },

@@ -1,5 +1,8 @@
 package questionnaire
 
+import forms.FormData
+import forms.form
+import kotlinext.js.Object
 import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
@@ -8,6 +11,11 @@ import react.material.data.CardData
 import react.material.data.ColData
 import react.material.data.RowData
 import react.material.row
+import resources.currentResultHeader
+import resources.nextRequestHeader
+import schema.getSchema
+import schema.getTargetSchemaByRel
+import kotlin.js.Json
 
 interface QuestionCardProps : RProps {
     var body: String
@@ -17,7 +25,7 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
 
     private fun RBuilder.iconButton(iconText: String, onClick: (Event) -> Unit) = run {
         this.child("i", object : RProps {
-            val `class` = "waves-effect waves-teal material-icons"
+            val className = "waves-effect waves-teal material-icons"
             val onClick = onClick
         }) {
             +iconText
@@ -25,11 +33,9 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
     }
 
     private fun RBuilder.showLoadingDots() = run {
-        if (props.body == undefined) {
-            span("loading-dots") { +"." }
-            span("loading-dots") { +"." }
-            span("loading-dots") { +"." }
-        }
+        span("loading-dots") { +"." }
+        span("loading-dots") { +"." }
+        span("loading-dots") { +"." }
     }
 
     override fun RBuilder.render() {
@@ -48,10 +54,31 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
                         },
 
                         ColData(s = 10, className = "question-card-body") {
-                            showLoadingDots()
-                            p {
-                                +props.body
+                            if (props.body === undefined) {
+                                showLoadingDots()
+                            } else {
+                                val jsonBody = JSON.parse<Json>(props.body)
+
+                                val schema = jsonBody.getSchema()
+                                val targetSchema = schema.getTargetSchemaByRel("next")
+
+                                div("question-card-current-response") {
+                                    h3 { +currentResultHeader() }
+                                    Object.getOwnPropertyNames(jsonBody)
+                                            .filter { it != "_schema" }
+                                            .map { prop ->
+                                                p {
+                                                    h5 { +"$prop: " }
+                                                    i { +jsonBody[prop].toString() }
+                                                }
+                                            }
+                                }
+                                div("question-card-next-request") {
+                                    h3 { +nextRequestHeader() }
+                                    form(FormData(targetSchema))
+                                }
                             }
+
                         },
 
                         ColData(s = 1, className = "question-card-to-right") {
@@ -70,3 +97,4 @@ fun RBuilder.questionCard(body: String, block: RHandler<RProps>) = child(Questio
     this.attrs.body = body
     block(this)
 }
+
