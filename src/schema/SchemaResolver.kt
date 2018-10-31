@@ -1,9 +1,13 @@
 package schema
 
 import kotlinext.js.Object
+import org.w3c.dom.get
+import org.w3c.dom.set
+import types.axios.AxiosResponse
 import types.axios.RefResolver
 import types.axios.axios
 import util.anyToJson
+import kotlin.browser.localStorage
 import kotlin.js.Json
 import kotlin.js.json
 
@@ -14,24 +18,24 @@ fun defaultReplacer(data: Any, callback: () -> Unit) = replaceRef(data) { foundR
 
     if (url.startsWith("http")) {
 
-        console.log("found unresolved ref: $url")
+        val baseUrl = url.splitToSequence("#").first()
+        console.log("found unresolved ref: $baseUrl")
 
-        axios.get<String>(url)
-                .then { schema ->
+        val pathToSchemaObject = schemaObjectPath(url)
 
-                    val pathToSchemaObject = schemaObjectPath(url)
+        if (localStorage[baseUrl] == null) {
+            axios.get<String>(url)
+                    .then { schema ->
 
-                    console.log("trying to extract schema by path $pathToSchemaObject")
+                        localStorage[baseUrl] = JSON.stringify(schema.data)
 
-                    val json = pathToSchemaObject.fold(anyToJson(schema.data)) { i, p ->
-                        anyToJson(i[p] ?: json())
+                        resolveSchema(pathToSchemaObject, anyToJson(schema.data), foundRef, callback)
                     }
-                    foundRef.add(json)
-                    foundRef[REF_KEY] = undefined
+        } else {
+            console.log("response taken from cache")
+            resolveSchema(pathToSchemaObject, JSON.parse(localStorage[baseUrl]!!), foundRef, callback)
+        }
 
-                    // FIXME resolve does not consider multiple refs
-                    callback()
-                }
     } else {
         // FIXME resolve does not consider multiple refs
         callback()
@@ -61,6 +65,20 @@ private fun replaceRef(body: Json, replacer: (Json) -> Unit): Json {
     }
 
     return body
+}
+
+fun resolveSchema(pathToSchemaObject: List<String>, schema: Json, foundRef: Json, callback: () -> Unit) {
+
+    console.log("trying to extract schema by path $pathToSchemaObject")
+
+    val json = pathToSchemaObject.fold(schema) { i, p ->
+        anyToJson(i[p] ?: json())
+    }
+    foundRef.add(json)
+    foundRef[REF_KEY] = undefined
+
+    // FIXME resolve does not consider multiple refs
+    callback()
 }
 
 fun schemaObjectPath(url: String): List<String> {

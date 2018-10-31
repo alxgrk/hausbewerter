@@ -106,6 +106,7 @@ external interface AxiosInstance {
     fun <T> get(url: String, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<T>
     fun delete(url: String, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<Any>
     fun head(url: String, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<Any>
+    fun options(url: String, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<Any>
     fun <T> post(url: String, data: Any? = definedExternally /* null */, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<T>
     fun <T> put(url: String, data: Any? = definedExternally /* null */, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<T>
     fun <T> patch(url: String, data: Any? = definedExternally /* null */, config: AxiosRequestConfig? = definedExternally /* null */): AxiosPromise<T>

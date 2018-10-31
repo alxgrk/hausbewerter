@@ -1,6 +1,8 @@
 package schema
 
 import kotlinext.js.JsObject
+import types.axios.AxiosPromise
+import types.axios.RefResolver.axiosRefResolver
 import kotlin.js.Json
 
 data class Schema(val links: MutableList<Link>)
@@ -14,6 +16,20 @@ data class Link(
 
 enum class Method {
     GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD
+}
+
+fun <T> Link.axios(url: String, data: Any? = null): AxiosPromise<T> {
+    console.log(method)
+    return when (method.toString()) {
+        Method.GET.name -> axiosRefResolver.get(url)
+        Method.POST.name -> axiosRefResolver.post(url, data)
+        Method.PUT.name -> axiosRefResolver.put(url, data)
+        Method.PATCH.name -> axiosRefResolver.patch(url, data)
+        Method.DELETE.name -> axiosRefResolver.delete(url).unsafeCast<AxiosPromise<T>>()
+        Method.HEAD.name -> axiosRefResolver.head(url).unsafeCast<AxiosPromise<T>>()
+        Method.OPTIONS.name -> axiosRefResolver.options(url).unsafeCast<AxiosPromise<T>>()
+        else -> throw UnsupportedOperationException("$method")
+    }
 }
 
 fun Schema.getTargetSchemaByRel(rel: String): JsObject = links

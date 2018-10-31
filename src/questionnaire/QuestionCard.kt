@@ -19,6 +19,7 @@ import kotlin.js.Json
 
 interface QuestionCardProps : RProps {
     var body: String
+    var onSubmit: (dynamic) -> Unit
 }
 
 class QuestionCard : RComponent<QuestionCardProps, RState>() {
@@ -68,14 +69,15 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
                                             .filter { it != "_schema" }
                                             .map { prop ->
                                                 p {
-                                                    h5 { +"$prop: " }
-                                                    i { +jsonBody[prop].toString() }
+                                                    +"$prop: ${jsonBody[prop].toString()}"
                                                 }
                                             }
                                 }
                                 div("question-card-next-request") {
                                     h3 { +nextRequestHeader() }
-                                    form(FormData(targetSchema))
+                                    form(FormData(
+                                            onSubmit = props.onSubmit,
+                                            schema = targetSchema))
                                 }
                             }
 
@@ -93,8 +95,11 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
 
 }
 
-fun RBuilder.questionCard(body: String, block: RHandler<RProps>) = child(QuestionCard::class) {
+fun RBuilder.questionCard(body: String,
+                          onSubmit: (dynamic) -> Unit,
+                          block: RHandler<RProps>) = child(QuestionCard::class) {
     this.attrs.body = body
+    this.attrs.onSubmit = onSubmit
     block(this)
 }
 
