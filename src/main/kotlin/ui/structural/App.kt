@@ -3,12 +3,12 @@ package ui.structural
 import libraries.react.router.browserRouter
 import libraries.react.router.route
 import libraries.react.router.switch
-import ui.components.questionnaire.Questionnaire
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.div
+import ui.components.questionnaire.Questionnaire
 
 class App : RComponent<RProps, RState>() {
     override fun RBuilder.render() {

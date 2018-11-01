@@ -2,7 +2,7 @@
 
 package libraries
 
-import kotlin.js.*
+import kotlin.js.Promise
 
 external interface AxiosTransformer {
     @nativeInvoke

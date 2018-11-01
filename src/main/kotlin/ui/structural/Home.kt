@@ -1,12 +1,14 @@
 package ui.structural
 
-import ui.components.cards.cardRow
+import libraries.react.material.button
 import libraries.react.material.data.*
-import libraries.react.material.*
+import libraries.react.material.footer
+import libraries.react.material.parallax
 import libraries.react.router.link
-import ui.components.logo.logo
 import react.*
 import react.dom.*
+import ui.components.cards.cardRow
+import ui.components.logo.logo
 import various.*
 
 const val imgHouse = "/images/house-landscape-1.jpg"

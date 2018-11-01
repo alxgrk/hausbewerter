@@ -6,7 +6,6 @@ import libraries.react.material.data.NavProps
 import libraries.react.material.navBar
 import libraries.react.material.navItem
 import libraries.react.router.link
-import ui.components.login.login
 import org.w3c.dom.Element
 import react.RBuilder
 import react.RComponent
@@ -15,6 +14,7 @@ import react.RState
 import react.dom.div
 import react.dom.findDOMNode
 import react.dom.i
+import ui.components.login.login
 import various.appName
 
 class Nav(props: NavProps) : RComponent<NavProps, RState>(props) {

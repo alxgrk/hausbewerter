@@ -1,8 +1,6 @@
 package ui.components.questionnaire
 
 import libraries.AxiosResponse
-import network.RefResolver.axiosRefResolver
-import network.axios
 import network.data.questionRepo
 import network.getSchema
 import react.*
