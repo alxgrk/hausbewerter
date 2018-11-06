@@ -19,7 +19,7 @@
 
 # IDE
 .idea/*
-projectFilesBackup/*.iml
+projectFilesBackup/*
 
 # logs
 npm-debug.log*

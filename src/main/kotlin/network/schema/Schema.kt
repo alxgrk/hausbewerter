@@ -1,8 +1,8 @@
-package network
+package network.schema
 
 import kotlinext.js.JsObject
 import libraries.AxiosPromise
-import network.RefResolver.axiosRefResolver
+import network.schema.RefResolver.axiosRefResolver
 import kotlin.js.*
 
 data class Schema(val links: MutableList<Link>)
@@ -18,8 +18,9 @@ enum class Method {
     GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD
 }
 
-fun <T> Link.axios(url: String, data: Any? = null): AxiosPromise<T> {
+fun <T> Link.axios(baseUrl: String = "", data: Json = json()): AxiosPromise<T> {
     console.log(method)
+    val url = "$baseUrl$href"
     return when (method.toString()) {
         Method.GET.name -> axiosRefResolver.get(url)
         Method.POST.name -> axiosRefResolver.post(url, data)
@@ -32,8 +33,16 @@ fun <T> Link.axios(url: String, data: Any? = null): AxiosPromise<T> {
     }
 }
 
-fun Schema.getTargetSchemaByRel(rel: String): JsObject = links
-        .filter { it.rel == rel }
+fun Schema.getLinkByRel(rel: Relation): Link = links
+        .first { it.rel == rel.toString() }
+
+fun Schema.getHrefByRel(rel: Relation): String = links
+        .filter { it.rel == rel.toString() }
+        .map { it.href }
+        .first()
+
+fun Schema.getTargetSchemaByRel(rel: Relation): JsObject = links
+        .filter { it.rel == rel.toString() }
         .map { it.targetSchema }
         .first()
 

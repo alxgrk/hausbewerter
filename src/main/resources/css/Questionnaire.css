@@ -20,6 +20,27 @@
     max-width: 95%;
 }
 
+.question-card-next-request select {
+    display: inherit;
+
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    background-color: rgba(57, 149, 163, 0.2);
+    border: none;
+    overflow: hidden;
+}
+
+i.glyphicon { display: none; }
+.btn-add::after { content: 'Add'; }
+.array-item-move-up::after { content: 'Move Up'; }
+.array-item-move-down::after { content: 'Move Down'; }
+.array-item-remove::after { content: 'Remove'; }
+
 /* LOADING DOTS */
 @keyframes dots {
     50% {

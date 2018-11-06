@@ -17,7 +17,7 @@ interface LoginState : RState {
 class Login(props: LoginProps) : RComponent<LoginProps, LoginState>(props) {
 
     override fun RBuilder.render() {
-        div("ui/components/login") {
+        div("login") {
             usernameInput {
                 setState {
                     username = it.target.toString()

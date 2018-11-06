@@ -1,4 +1,4 @@
-package network
+package network.schema
 
 import kotlinext.js.Object
 import libraries.axios
@@ -11,7 +11,9 @@ import kotlin.js.*
 
 const val REF_KEY = "\$ref"
 
-fun defaultReplacer(data: Any, callback: () -> Unit) = replaceRef(data) { foundRef ->
+// TODO use `SchemaRepository` (local)
+// TODO improve recursiveness
+fun defaultReplacer(data: Any, callback: () -> Unit) = replaceRef(data, callback) { foundRef ->
     val url = foundRef[REF_KEY].unsafeCast<String>()
 
     if (url.startsWith("http")) {
@@ -40,11 +42,14 @@ fun defaultReplacer(data: Any, callback: () -> Unit) = replaceRef(data) { foundR
     }
 }
 
-fun replaceRef(any: Any, replacer: (Json) -> Unit): Json =
+fun replaceRef(any: Any, callback: () -> Unit, replacer: (Json) -> Unit): Json =
         if (any.toJsonString().contains(REF_KEY))
             replaceRef(any.toJson(), replacer)
-        else
+        else {
+            // FIXME resolve does not consider multiple refs
+            callback()
             any.toJson()
+        }
 
 private fun replaceRef(body: Json, replacer: (Json) -> Unit): Json {
     for (key in Object.getOwnPropertyNames(body)) {
@@ -52,7 +57,7 @@ private fun replaceRef(body: Json, replacer: (Json) -> Unit): Json {
         val child = body[key] ?: json()
 
         if (jsTypeOf(child) == "object") {
-            body[key] = replaceRef(child, replacer)
+            body[key] = replaceRef(child.toJson(), replacer)
         }
 
         if (key == REF_KEY) {
