@@ -43,20 +43,20 @@ class RemoteQuestionRepository : QuestionRepository<AxiosResponse<String>> {
 
     override fun create(onResponse: (AxiosResponse<String>) -> Any) = safetyRootCall {
         _root.getLinkByRel(Relation.CREATE)
-                .axios<String>(_base)
-                .then(onResponse)
+                ?.axios<String>(_base)
+                ?.then(onResponse)
     }
 
     override fun getById(id: String, onResponse: (AxiosResponse<String>) -> Any) = safetyRootCall {
         _root.getLinkByRel(Relation.BY_ID)
-                .axios<String>(_base)
-                .then(onResponse)
+                ?.axios<String>(_base)
+                ?.then(onResponse)
     }
 
     override fun getNext(schema: Schema, body: Json, onResponse: (AxiosResponse<String>) -> Any) {
         schema.getLinkByRel(Relation.NEXT)
-                .axios<String>(_base, body)
-                .then(onResponse)
+                ?.axios<String>(_base, body)
+                ?.then(onResponse)
     }
 
     private fun safetyRootCall(interactWithRoot: () -> Unit) {

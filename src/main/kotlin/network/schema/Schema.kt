@@ -33,18 +33,13 @@ fun <T> Link.axios(baseUrl: String = "", data: Json = json()): AxiosPromise<T> {
     }
 }
 
-fun Schema.getLinkByRel(rel: Relation): Link = links
-        .first { it.rel == rel.toString() }
+fun Schema.getLinkByRel(rel: Relation): Link? = links
+        .firstOrNull { it.rel == rel.toString() }
 
-fun Schema.getHrefByRel(rel: Relation): String = links
-        .filter { it.rel == rel.toString() }
-        .map { it.href }
-        .first()
-
-fun Schema.getTargetSchemaByRel(rel: Relation): JsObject = links
+fun Schema.getTargetSchemaByRel(rel: Relation): JsObject? = links
         .filter { it.rel == rel.toString() }
         .map { it.targetSchema }
-        .first()
+        .firstOrNull()
 
 
 fun Json.getSchema(): Schema = this["_schema"].asDynamic()

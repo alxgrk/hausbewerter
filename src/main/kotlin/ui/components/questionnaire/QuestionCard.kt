@@ -71,7 +71,7 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
                                 val targetSchema = props.schema.getTargetSchemaByRel(Relation.NEXT)
 
                                 div("question-card-current-response") {
-                                    if (targetSchema !== undefined)
+                                    if (targetSchema != null)
                                         h3 { +currentResultHeader() }
                                     else
                                         h1 { +endResultHeader() }
@@ -83,7 +83,7 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
                                                 }
                                             }
                                 }
-                                if (targetSchema !== undefined)
+                                if (targetSchema != null)
                                     div("question-card-next-request") {
                                         h3 { +nextRequestHeader() }
                                         form(FormData(
