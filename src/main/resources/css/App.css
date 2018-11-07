@@ -12,6 +12,7 @@ body {
 
 .content {
     margin-top: auto;
+    min-height: 100vh;
 }
 
 /* FOOTER */
