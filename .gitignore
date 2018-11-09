@@ -5,7 +5,7 @@
 
 # production
 build/
-#!build/bundle
+!build/bundle
 
 # misc
 .DS_Store
