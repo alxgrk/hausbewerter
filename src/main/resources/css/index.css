@@ -1,0 +1,42 @@
+@import url("About.css");
+@import url("App.css");
+@import url("Body.css");
+@import url("CardRow.css");
+@import url("Home.css");
+@import url("Login.css");
+@import url("Logo.css");
+@import url("Nav.css");
+@import url("Questionnaire.css");
+
+/*
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', Arial, sans-serif;
+}
+
+a {
+  color: #4e4a46;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  color: #c94e50;
+}
+
+.btn {
+    color: white;
+    background-color: #255D66;
+}
+.btn:hover,
+.btn:focus {
+    background-color: #386B79;
+}
