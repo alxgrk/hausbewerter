@@ -3,6 +3,10 @@
 # testing
 /coverage
 
+# production
+build/
+#!build/bundle
+
 # misc
 .DS_Store
 .env.local
