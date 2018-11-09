@@ -47,3 +47,7 @@ external class Col : Component<ColProps, RState> {
 external class Footer : Component<FooterProps, RState> {
     override fun render(): ReactElement?
 }
+
+external class Icon : Component<IconProps, RState> {
+    override fun render(): ReactElement?
+}

@@ -19,10 +19,7 @@ class LoginButton(props: LoginButtonProps) : RComponent<LoginButtonProps, RState
     override fun RBuilder.render() {
 
         p {
-            button(
-                    data = ButtonData("light", buttonLogin()),
-                    onClick = props.onClick
-            )
+            button(text = buttonLogin(), onClick = props.onClick)
         }
     }
 }

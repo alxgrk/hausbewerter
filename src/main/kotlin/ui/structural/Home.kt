@@ -142,9 +142,7 @@ class Body : RComponent<RProps, RState>() {
             }
             div("Body-try-button") {
                 link(to = "/questionnaire") {
-                    button(
-                            ButtonData("light", buttonTry())
-                    ) {}
+                    button(text = buttonTry()) {}
                 }
             }
         }

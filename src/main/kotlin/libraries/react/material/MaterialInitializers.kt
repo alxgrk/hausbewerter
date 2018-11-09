@@ -6,7 +6,7 @@ import org.w3c.dom.events.Event
 import react.*
 import ui.structural.navBrandCentralizer
 
-fun RBuilder.button(data: ButtonData, onClick: (Event) -> Unit) = child(Button::class) {
+fun RBuilder.button(text: String, data: ButtonData = ButtonData(), onClick: (Event) -> Unit) = child(Button::class) {
     attrs {
         this.waves = data.waves
         this.floating = data.floating
@@ -15,7 +15,7 @@ fun RBuilder.button(data: ButtonData, onClick: (Event) -> Unit) = child(Button::
         this.href = data.href ?: undefined
         this.className = data.className ?: undefined
     }
-    +data.text
+    +text
 }
 
 fun RBuilder.navBar(data: NavBarData, handler: RHandler<RProps>) = child(NavBar::class) {
@@ -101,4 +101,17 @@ fun RBuilder.footer(data: FooterData) = child(Footer::class) {
         this.moreLinks = data.moreLinks
     }
     data.children(this)
+}
+
+fun RBuilder.icon(data: IconData = IconData(), children: String) = child(Icon::class) {
+    attrs {
+        this.left = data.left
+        this.center = data.center
+        this.right = data.right
+        this.tiny = data.tiny
+        this.small = data.small
+        this.medium = data.medium
+        this.large = data.large
+        this.children = children
+    }
 }

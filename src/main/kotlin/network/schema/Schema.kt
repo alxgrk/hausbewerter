@@ -19,7 +19,6 @@ enum class Method {
 }
 
 fun <T> Link.axios(baseUrl: String = "", data: Json = json()): AxiosPromise<T> {
-    console.log(method)
     val url = "$baseUrl$href"
     return when (method.toString()) {
         Method.GET.name -> axiosRefResolver.get(url)

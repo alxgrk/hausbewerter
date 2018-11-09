@@ -5,23 +5,23 @@ import react.dom.WithClassName
 
 // INTERFACES
 
-interface ButtonProps : WithClassName {
+interface ButtonDataProps : WithClassName {
     var waves: String
-    var text: String
-    var onClick: (Event) -> Unit
     var floating: Boolean
     var node: String?
     var href: String?
 }
 
+interface ButtonProps : ButtonDataProps {
+    var onClick: (Event) -> Unit
+}
+
 // IMPLEMENTATIONS
 
 data class ButtonData(
-        override var waves: String,
-        override var text: String,
-        override var onClick: (Event) -> Unit = {},
+        override var waves: String = "light",
         override var floating: Boolean = false,
         override var node: String? = null,
         override var href: String? = null,
         override var className: String? = ""
-) : ButtonProps
+) : ButtonDataProps

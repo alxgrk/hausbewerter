@@ -62,3 +62,31 @@ i.glyphicon { display: none; }
 .loading-dots:nth-child(3) {
     animation-delay: 500ms;
 }
+
+/* FINAL RESULT */
+@keyframes final-value {
+    0% {
+        font-size: 2.7em;
+    }
+    100% {
+         font-size: 3em;
+    }
+}
+
+.question-card-final-result-value i {
+    color: #255D66;
+}
+.question-card-final-result-value p {
+    font-size: 3em;
+    /*animation: 1s final-value infinite alternate ease-in-out;*/
+}
+.question-card-final-result-footer {
+    margin-top: 15%;
+    width: 103%;
+}
+.question-card-final-result-footer a:first-child {
+    margin-right: 2%;
+}
+.question-card-final-result-footer a:first-child .btn:first-child {
+    background-color: #545d66;
+}

@@ -23,5 +23,7 @@ fun footerHeader() = "Footer Content"
 fun footerContent() = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
 
 fun currentResultHeader() = "Zwischenergebnis"
-fun endResultHeader() = "Endergebnis"
+fun endResultHeader() = "Herzlichen Glückwunsch, hier ist Ihr Ergebnis."
 fun nextRequestHeader() = "Nächster Schritt"
+fun newQuestionnaire() = "Neu beginnen"
+fun backToHome() = "Zurück zur Hauptseite"
