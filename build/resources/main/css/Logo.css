@@ -1,0 +1,10 @@
+.Logo {
+  position: relative;
+  height: 100px;
+}
+
+.Logo-h {
+    margin-top: -1em;
+    height: 150%;
+}
+

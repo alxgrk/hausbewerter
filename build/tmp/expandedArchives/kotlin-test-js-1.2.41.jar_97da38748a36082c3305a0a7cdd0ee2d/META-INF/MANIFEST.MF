@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: kotlin-test-js
+Kotlin-Runtime-Component: Test
+Kotlin-Version: 1.2
+Implementation-Version: 1.2.41-release-74 (1.2.41)
+Build-Jdk: 1.8.0_151
+Implementation-Vendor: JetBrains
+

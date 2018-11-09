@@ -1,0 +1,1 @@
+/home/alex/.gradle/nodejs/node-v11.0.0-linux-x64/bin

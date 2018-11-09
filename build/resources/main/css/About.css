@@ -1,0 +1,16 @@
+.about-wrapper h3 {
+    text-align: left;
+    display: block;
+    margin-left: 20%;
+    margin-right: 15%;
+}
+.about-wrapper p {
+    text-align: justify;
+    display: block;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.about-wrapper div:nth-child(even) {
+    background: rgba(210, 210, 210, 0.2);
+}
