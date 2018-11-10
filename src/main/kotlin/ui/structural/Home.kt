@@ -11,8 +11,8 @@ import ui.components.cards.cardRow
 import ui.components.logo.logo
 import various.*
 
-const val imgHouse = "/images/house-landscape-1.jpg"
-const val imgMountain = "/images/mountain-1.jpg"
+const val imgHouse = "/src/main/resources/images/house-landscape-1.jpg"
+const val imgMountain = "/src/main/resources/images/mountain-1.jpg"
 
 class Home : RComponent<RProps, RState>() {
     override fun RBuilder.render() {
