@@ -6,7 +6,7 @@ import react.dom.img
 
 fun RBuilder.logo() {
     div("Logo") {
-        img(alt = "h-logo", src = "/src/main/resources/images/letter_H_curvy.svg", classes = "Logo-h") {}
+        img(alt = "h-logo", src = "/hausbewerter-js/src/main/resources/images/letter_H_curvy.svg", classes = "Logo-h") {}
     }
 }
 
