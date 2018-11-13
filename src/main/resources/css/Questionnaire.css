@@ -3,6 +3,11 @@
     background-color: rgba(57, 149, 163, 0.7)
 }
 
+.questionnaire-creating-new {
+    color: white;
+    margin-left: 10%;
+}
+
 .questionnaire .card {
     max-width: 50%;
     margin-left: auto;

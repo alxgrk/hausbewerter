@@ -1,25 +1,11 @@
 package network.data
 
+import data.QuestionRepository
 import libraries.AxiosResponse
 import network.schema.*
 import network.schema.RefResolver.axiosRefResolver
 import various.toJson
-import various.toJsonString
 import kotlin.js.Json
-import kotlin.js.json
-
-
-interface QuestionRepository<T> {
-
-    fun root()
-
-    fun create(onResponse: (T) -> Any)
-
-    fun getById(id: String, onResponse: (T) -> Any)
-
-    fun getNext(schema: Schema, body: dynamic = json(), onResponse: (T) -> Any)
-
-}
 
 class RemoteQuestionRepository : QuestionRepository<AxiosResponse<String>> {
 

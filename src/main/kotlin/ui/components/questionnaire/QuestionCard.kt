@@ -1,5 +1,6 @@
 package ui.components.questionnaire
 
+import di.lastQidRepo
 import kotlinext.js.JsObject
 import kotlinext.js.Object
 import kotlinx.html.DIV
@@ -17,6 +18,8 @@ import network.schema.getTargetSchemaByRel
 import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
+import ui.components.various.iconButton
+import ui.components.various.showLoadingDots
 import various.*
 import kotlin.js.Json
 
@@ -39,15 +42,6 @@ private interface NextRequestProps : RProps {
 
 class QuestionCard : RComponent<QuestionCardProps, RState>() {
 
-    private fun RBuilder.iconButton(iconText: String, onClick: (Event) -> Unit) = run {
-        this.child("i", object : RProps {
-            val className = "waves-effect waves-teal material-icons"
-            val onClick = onClick
-        }) {
-            +iconText
-        }
-    }
-
     private fun RBuilder.whenContentReady(andThen: () -> Unit) {
         if (props.body === undefined
                 || Object.getOwnPropertyNames(props.body).isEmpty()
@@ -55,12 +49,6 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
             showLoadingDots()
         else
             andThen()
-    }
-
-    private fun RBuilder.showLoadingDots() = run {
-        span("loading-dots") { +"." }
-        span("loading-dots") { +"." }
-        span("loading-dots") { +"." }
     }
 
     override fun RBuilder.render() {
@@ -129,7 +117,6 @@ private class CurrentResponse : RComponent<CurrentResponseProps, RState>() {
     private fun RDOMBuilder<DIV>.displayFinalFooter() {
         div("question-card-final-result-footer") {
             link("/questionnaire") {
-                // TODO restart
                 button(newQuestionnaire()) {}
             }
             link("/") {
@@ -144,6 +131,7 @@ private class CurrentResponse : RComponent<CurrentResponseProps, RState>() {
                 h3 { +currentResultHeader() }
                 displayBody()
             } else {
+                lastQidRepo.clear()
                 h1 { +endResultHeader() }
                 displayFinalValue()
                 displayFinalFooter()

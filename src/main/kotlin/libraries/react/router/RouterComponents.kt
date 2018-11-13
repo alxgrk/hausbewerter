@@ -19,6 +19,19 @@ external class Link : Component<LinkProps, RState> {
     override fun render(): ReactElement?
 }
 
+external class Redirect : Component<RedirectProps, RState> {
+    override fun render(): react.ReactElement?
+}
+
+external interface RedirectProps : RProps {
+    var exact: Boolean
+    var from: String
+    var push: Boolean
+    var strict: Boolean
+    var to: String
+}
+
+
 external interface RouteProps : RProps {
     var path: String
     var exact: Boolean
