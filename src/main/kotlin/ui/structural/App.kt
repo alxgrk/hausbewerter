@@ -3,13 +3,14 @@ package ui.structural
 import libraries.react.router.browserRouter
 import libraries.react.router.route
 import libraries.react.router.switch
-import network.questionRepo
+import di.questionRepo
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.div
 import ui.components.questionnaire.Questionnaire
+import ui.components.questionnaire.Questionnaires
 
 class App : RComponent<RProps, RState>() {
 
@@ -24,7 +25,8 @@ class App : RComponent<RProps, RState>() {
                 switch {
                     route("/", Home::class, exact = true)
                     route("/about", About::class)
-                    route("/questionnaire", Questionnaire::class)
+                    route("/questionnaire", Questionnaires::class, exact = true)
+                    route("/questionnaire/:id", Questionnaire::class)
                 }
             }
         }

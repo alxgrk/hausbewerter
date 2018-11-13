@@ -25,5 +25,6 @@ fun footerContent() = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
 fun currentResultHeader() = "Zwischenergebnis"
 fun endResultHeader() = "Herzlichen Glückwunsch, hier ist Ihr Ergebnis."
 fun nextRequestHeader() = "Nächster Schritt"
+fun creatingNewQuestionnaire() = "Neuer Fragebogen wird erstellt..."
 fun newQuestionnaire() = "Neu beginnen"
 fun backToHome() = "Zurück zur Hauptseite"
