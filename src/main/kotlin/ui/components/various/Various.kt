@@ -5,9 +5,9 @@ import react.RBuilder
 import react.RProps
 import react.dom.span
 
-fun RBuilder.iconButton(iconText: String, onClick: (Event) -> Unit) = run {
+fun RBuilder.iconButton(iconText: String, className: String = "", onClick: (Event) -> Unit) = run {
     this.child("i", object : RProps {
-        val className = "waves-effect waves-teal material-icons"
+        val className = "waves-effect waves-teal material-icons $className"
         val onClick = onClick
     }) {
         +iconText

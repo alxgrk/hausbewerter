@@ -14,13 +14,14 @@ import libraries.react.material.row
 import libraries.react.router.link
 import network.schema.Relation
 import network.schema.Schema
+import network.schema.getLinkByRel
 import network.schema.getTargetSchemaByRel
-import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
 import ui.components.various.iconButton
 import ui.components.various.showLoadingDots
 import various.*
+import kotlin.browser.document
 import kotlin.js.Json
 
 interface QuestionCardProps : RProps {
@@ -58,31 +59,35 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
             card(CardData(title = "",
                     offset = "offset-m2 offset-l3") {
 
-                row(RowData(className = "valign-wrapper", children = listOf(
+                whenContentReady {
+                    row(RowData(className = "valign-wrapper", children = listOf(
 
-                        ColData(s = 1, className = "question-card-to-left") {
-                            iconButton("chevron_left") {
-                                console.log("clicked left")
-                            }
-                        },
+                            ColData(s = 1, className = "question-card-to-left") {
+                                val isHidden = if (props.schema.getLinkByRel(Relation.PREV) == null) "hidden" else ""
 
-                        ColData(s = 10, className = "question-card-body") {
-                            whenContentReady {
+                                iconButton("chevron_left", className = isHidden) {
+                                    console.log("clicked left")
+                                }
+                            },
+
+                            ColData(s = 10, className = "question-card-body") {
                                 val targetSchema = props.schema.getTargetSchemaByRel(Relation.NEXT)
 
                                 currentResponse(props.body, targetSchema == null)
                                 if (targetSchema != null)
                                     nextRequest(props.body, targetSchema, props.onSubmit)
-                            }
 
-                        },
+                            },
 
-                        ColData(s = 1, className = "question-card-to-right") {
-                            iconButton("chevron_right") {
-                                console.log("clicked right")
+                            ColData(s = 1, className = "question-card-to-right") {
+                                val isHidden = if (props.schema.getLinkByRel(Relation.NEXT) == null) "hidden" else ""
+
+                                iconButton("chevron_right", className = isHidden) {
+                                    document.querySelector("form button[type=submit]")?.asDynamic().click()
+                                }
                             }
-                        }
-                )))
+                    )))
+                }
             })
         }
     }
@@ -155,6 +160,7 @@ private class NextRequest : RComponent<NextRequestProps, RState>() {
                         it
                     }))
         }
+
     }
 }
 
