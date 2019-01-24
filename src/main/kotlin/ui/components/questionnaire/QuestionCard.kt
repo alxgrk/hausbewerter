@@ -28,6 +28,7 @@ interface QuestionCardProps : RProps {
     var body: Json
     var schema: Schema
     var onSubmit: (dynamic) -> Unit
+    var onBack: () -> Unit
 }
 
 private interface CurrentResponseProps : RProps {
@@ -66,7 +67,8 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
                                 val isHidden = if (props.schema.getLinkByRel(Relation.PREV) == null) "hidden" else ""
 
                                 iconButton("chevron_left", className = isHidden) {
-                                    console.log("clicked left")
+                                    // FIXME also save form data
+                                    props.onBack()
                                 }
                             },
 
@@ -156,7 +158,7 @@ private class NextRequest : RComponent<NextRequestProps, RState>() {
                     onSubmit = props.onSubmit,
                     schema = props.targetSchema,
                     transformErrors = {
-                        console.log(it)
+                        console.log("Encaptured error: ${it.toJsonString()}")
                         it
                     }))
         }
@@ -167,11 +169,13 @@ private class NextRequest : RComponent<NextRequestProps, RState>() {
 fun RBuilder.questionCard(body: Json,
                           schema: Schema,
                           onSubmit: (dynamic) -> Unit,
+                          onBack: () -> Unit,
                           block: RHandler<RProps>) = child(QuestionCard::class) {
     attrs {
         this.body = body
         this.schema = schema
         this.onSubmit = onSubmit
+        this.onBack = onBack
     }
     block(this)
 }
