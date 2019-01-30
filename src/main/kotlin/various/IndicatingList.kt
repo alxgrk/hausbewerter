@@ -6,26 +6,36 @@ class IndicatingList<T> : MutableIterable<T> {
 
     private var _indicator = -1
 
-    fun isEmpty(): Boolean = this._items.isEmpty()
+    fun isEmpty(): Boolean = _items.isEmpty()
 
-    fun count(): Int = this._items.count()
+    fun count(): Int = _items.count()
 
-    fun position(): Int = this._indicator
+    fun position(): Int = _indicator
+
+    fun isPointingToLast(): Boolean = count() - 1 == position()
 
     fun push(element: T) =
-            if (position() + 1 == count())
+            if (isPointingToLast())
                 _items.add(++_indicator, element)
             else
                 _items[++_indicator] = element
 
+    fun current() = _items[_indicator]
+
+    fun forth(): Boolean =
+            isPointingToLast().let {
+                if (!it && !isEmpty()) _indicator++
+                !it
+            }
+
     fun back(): T? =
             when {
                 isEmpty() -> null
-                count() == 1 -> _items[_indicator]
+                count() == 1 -> current()
                 else -> _items[--_indicator]
             }
 
-    override fun toString() = this._items.toString()
+    override fun toString() = _items.toString()
 
     override fun iterator(): MutableIterator<T> = _items.iterator()
 

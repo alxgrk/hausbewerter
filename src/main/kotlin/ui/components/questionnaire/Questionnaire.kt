@@ -2,11 +2,14 @@ package ui.components.questionnaire
 
 import libraries.AxiosResponse
 import di.questionRepo
+import kotlinext.js.JsObject
+import kotlinext.js.jsObject
 import libraries.react.router.RouteResultProps
 import network.schema.Schema
 import network.schema.getSchema
 import react.*
 import various.IndicatingList
+import various.formDataToJsObject
 import various.toJson
 import various.toJsonString
 import kotlin.js.Json
@@ -16,6 +19,7 @@ interface QuestionnaireState : RState {
     var body: Json
     var schema: Schema
     var onSubmit: (dynamic) -> Unit
+    var formData: JsObject
     var prevStates: IndicatingList<QuestionnaireState>
 }
 
@@ -40,33 +44,70 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
                 console.log("stack size: ${prevStates.count()}, " +
                         "position: ${prevStates.position()}")
 
+                formData = jsObject { }
                 body = response.data.toJson()
                 schema = body.getSchema()
                 onSubmit = prepareSubmission(schema)
             }
 
-    private fun prepareSubmission(schema: Schema): (dynamic) -> Unit = { submit ->
-        setState { body = json() }
-        val formData = (submit.formData as Any).toJson()
-        questionRepo.getNext(schema, formData, ::onResponse)
-    }
+    private fun prepareSubmission(curSchema: Schema): (dynamic) -> Unit = { submit ->
+        val curFormData = formDataToJsObject(submit)
 
-    private fun onBack() = setState {
-        if (!prevStates.isEmpty()) {
-            // jumping back to previous state
-            val prevState = prevStates.back()
-            console.log("stack size: ${prevStates.count()}, " +
-                    "position: ${prevStates.position()}")
+        rememberCurrentFormData(curFormData) {
 
-            console.log("Prev state: ${prevState?.body.toJsonString()}")
-            body = prevState?.body ?: json()
-            schema = prevState?.schema ?: Schema(mutableListOf())
-            onSubmit = prevState?.onSubmit ?: {}
+            if (!state.prevStates.forth()) {
+                setState {
+                    body = json()
+                }
+
+                console.log("Querying next step of questionnaire.")
+                questionRepo.getNext(curSchema, curFormData, ::onResponse)
+            } else {
+                console.log("Not making a new request, already entered data.")
+                val upcomingState = state.prevStates.current()
+                setState {
+                    body = upcomingState.body
+                    schema = upcomingState.schema
+                    onSubmit = upcomingState.onSubmit
+                    formData = upcomingState.formData
+                }
+            }
 
         }
     }
 
+    private fun onBack(curFormData: JsObject) {
+        if (!state.prevStates.isEmpty()) {
+            // remembering current state
+            rememberCurrentFormData(curFormData) {
+
+                setState {
+                    // jumping back to previous state
+                    val prevState = prevStates.back()
+
+                    console.log("stack size: ${prevStates.count()}, " +
+                            "position: ${prevStates.position()}")
+                    console.log("Prev response: ${prevState?.body.toJsonString()}")
+                    console.log("Prev formData: ${prevState?.formData.toJsonString()}")
+
+                    body = prevState?.body ?: json()
+                    schema = prevState?.schema ?: Schema(mutableListOf())
+                    onSubmit = prevState?.onSubmit ?: {}
+                    formData = prevState?.formData ?: jsObject { }
+                }
+            }
+        }
+    }
+
+    // using callback to ensure, state change has happened
+    private fun rememberCurrentFormData(curFormData: JsObject, andThen: () -> Unit) = setState({
+        state.prevStates.current().formData = jsObject {  }
+        state.prevStates.current().formData = curFormData
+        console.log("current form data remembered: ${state.prevStates.current().formData.toJsonString()}")
+        it
+    }, andThen)
+
     override fun RBuilder.render() {
-        questionCard(state.body, state.schema, state.onSubmit, ::onBack) { }
+        questionCard(state.body, state.schema, state.formData, state.onSubmit, ::onBack) { }
     }
 }
