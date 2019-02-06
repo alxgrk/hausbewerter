@@ -9,7 +9,7 @@ import kotlin.js.Json
 
 class RemoteQuestionRepository : QuestionRepository<AxiosResponse<String>> {
 
-    private val _base = "http://localhost:8080"  //"https://virtserver.swaggerhub.com/hausbewerter/hausbewerter/1.0.0"
+    private val _base = "https://hausbewerter-server.herokuapp.com" // "http://localhost:8080"
 
     private lateinit var _root: Schema
 
