@@ -35,6 +35,7 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
 
     override fun componentWillMount() {
         val qid = props.match.params.id
+        console.log("Querying questionnaire with id '$qid'")
         questionRepo.getById(qid, ::onResponse)
     }
 

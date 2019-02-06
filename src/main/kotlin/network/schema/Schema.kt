@@ -12,7 +12,7 @@ data class Schema(val links: MutableList<Link>)
 
 data class Link(
         val rel: String,
-        val href: String,
+        var href: String,
         val method: Method,
         val targetSchema: JsObject
 )
