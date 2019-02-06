@@ -1,7 +1,10 @@
 package network.schema
 
 import kotlinext.js.JsObject
+import kotlinext.js.js
+import kotlinext.js.jsObject
 import libraries.AxiosPromise
+import libraries.AxiosRequestConfig
 import network.schema.RefResolver.axiosRefResolver
 import kotlin.js.*
 

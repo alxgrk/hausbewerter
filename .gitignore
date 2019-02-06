@@ -16,7 +16,7 @@ build/
 
 # IDE
 .idea/*
-projectFilesBackup/*
+projectFilesBackup*
 
 # logs
 npm-debug.log*

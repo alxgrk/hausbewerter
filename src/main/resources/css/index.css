@@ -40,3 +40,7 @@ a:focus {
 .btn:focus {
     background-color: #386B79;
 }
+
+.hidden {
+    display: none;
+}

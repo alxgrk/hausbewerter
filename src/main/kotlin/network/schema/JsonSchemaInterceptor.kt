@@ -2,7 +2,6 @@ package network.schema
 
 import kotlinext.js.clone
 import libraries.axios
-import various.toJsonString
 import kotlin.js.Promise
 
 object RefResolver {

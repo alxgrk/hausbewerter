@@ -1,5 +1,6 @@
 package various
 
+import kotlinext.js.asJsObject
 import kotlin.js.Json
 import kotlin.js.json
 
@@ -14,3 +15,5 @@ fun Any?.toJson(): Json {
 
     return JSON.parse(this.toJsonString())
 }
+
+fun formDataToJsObject(source: dynamic) = (source.formData as Any).asJsObject()

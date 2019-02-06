@@ -8,39 +8,38 @@ import libraries.forms.FormData
 import libraries.forms.form
 import libraries.react.material.button
 import libraries.react.material.card
-import libraries.react.material.data.*
+import libraries.react.material.data.CardData
+import libraries.react.material.data.ColData
+import libraries.react.material.data.IconData
+import libraries.react.material.data.RowData
 import libraries.react.material.icon
 import libraries.react.material.row
 import libraries.react.router.link
 import network.schema.Relation
 import network.schema.Schema
+import network.schema.getLinkByRel
 import network.schema.getTargetSchemaByRel
-import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
 import ui.components.various.iconButton
 import ui.components.various.showLoadingDots
 import various.*
+import kotlin.browser.document
 import kotlin.js.Json
 
 interface QuestionCardProps : RProps {
     var body: Json
     var schema: Schema
+    var formData: JsObject
     var onSubmit: (dynamic) -> Unit
+    var onBack: (JsObject) -> Unit
 }
 
-private interface CurrentResponseProps : RProps {
-    var body: Json
-    var finalResponse: Boolean
+interface QuestionCardState : RState {
+    var formData: JsObject
 }
 
-private interface NextRequestProps : RProps {
-    var body: Json
-    var targetSchema: JsObject
-    var onSubmit: (dynamic) -> Unit
-}
-
-class QuestionCard : RComponent<QuestionCardProps, RState>() {
+class QuestionCard : RComponent<QuestionCardProps, QuestionCardState>() {
 
     private fun RBuilder.whenContentReady(andThen: () -> Unit) {
         if (props.body === undefined
@@ -51,6 +50,16 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
             andThen()
     }
 
+    override fun componentWillReceiveProps(nextProps: QuestionCardProps) {
+        console.log("initializing form data with: ${props.formData.toJsonString()}")
+
+        // You don't have to do this check first, but it can help prevent an unneeded render
+        if (nextProps.formData !== this.state.formData)
+            setState {
+                formData = nextProps.formData
+            }
+    }
+
     override fun RBuilder.render() {
 
         div(classes = "questionnaire valign-wrapper") {
@@ -58,38 +67,55 @@ class QuestionCard : RComponent<QuestionCardProps, RState>() {
             card(CardData(title = "",
                     offset = "offset-m2 offset-l3") {
 
-                row(RowData(className = "valign-wrapper", children = listOf(
+                whenContentReady {
+                    row(RowData(className = "valign-wrapper", children = listOf(
 
-                        ColData(s = 1, className = "question-card-to-left") {
-                            iconButton("chevron_left") {
-                                console.log("clicked left")
-                            }
-                        },
+                            ColData(s = 1, className = "question-card-to-left") {
+                                val isHidden = if (props.schema.getLinkByRel(Relation.PREV) == null) "hidden" else ""
 
-                        ColData(s = 10, className = "question-card-body") {
-                            whenContentReady {
+                                iconButton("chevron_left", className = isHidden) {
+                                    props.onBack(state.formData)
+                                }
+                            },
+
+                            ColData(s = 10, className = "question-card-body") {
                                 val targetSchema = props.schema.getTargetSchemaByRel(Relation.NEXT)
 
-                                currentResponse(props.body, targetSchema == null)
+                                currentResponse(targetSchema == null)
                                 if (targetSchema != null)
-                                    nextRequest(props.body, targetSchema, props.onSubmit)
-                            }
+                                    nextRequest(targetSchema)
 
-                        },
+                            },
 
-                        ColData(s = 1, className = "question-card-to-right") {
-                            iconButton("chevron_right") {
-                                console.log("clicked right")
+                            ColData(s = 1, className = "question-card-to-right") {
+                                val isHidden = if (props.schema.getLinkByRel(Relation.NEXT) == null) "hidden" else ""
+
+                                iconButton("chevron_right", className = isHidden) {
+                                    document.querySelector("form button[type=submit]")?.asDynamic().click()
+                                }
                             }
-                        }
-                )))
+                    )))
+                }
             })
         }
     }
 
-}
+    private fun onFormDataChanged(data: dynamic) = setState {
+        formData = formDataToJsObject(data)
+    }
 
-private class CurrentResponse : RComponent<CurrentResponseProps, RState>() {
+    private fun RBuilder.nextRequest(targetSchema: JsObject) {
+
+        div("question-card-next-request") {
+            h3 { +nextRequestHeader() }
+            form(FormData(
+                    onSubmit = props.onSubmit,
+                    onChange = ::onFormDataChanged,
+                    schema = targetSchema,
+                    formData = state.formData))
+        }
+
+    }
 
     private fun RDOMBuilder<DIV>.displayBody() {
         Object.getOwnPropertyNames(props.body)
@@ -125,9 +151,9 @@ private class CurrentResponse : RComponent<CurrentResponseProps, RState>() {
         }
     }
 
-    override fun RBuilder.render() {
+    private fun RBuilder.currentResponse(finalResponse: Boolean) {
         div("question-card-current-response") {
-            if (!props.finalResponse) {
+            if (!finalResponse) {
                 h3 { +currentResultHeader() }
                 displayBody()
             } else {
@@ -141,49 +167,18 @@ private class CurrentResponse : RComponent<CurrentResponseProps, RState>() {
 
 }
 
-private class NextRequest : RComponent<NextRequestProps, RState>() {
-
-    override fun RBuilder.render() {
-
-        div("question-card-next-request") {
-            h3 { +nextRequestHeader() }
-            form(FormData(
-                    onSubmit = props.onSubmit,
-                    schema = props.targetSchema,
-                    transformErrors = {
-                        console.log(it)
-                        it
-                    }))
-        }
-    }
-}
-
 fun RBuilder.questionCard(body: Json,
                           schema: Schema,
+                          formData: JsObject,
                           onSubmit: (dynamic) -> Unit,
+                          onBack: (JsObject) -> Unit,
                           block: RHandler<RProps>) = child(QuestionCard::class) {
     attrs {
         this.body = body
         this.schema = schema
+        this.formData = formData
         this.onSubmit = onSubmit
+        this.onBack = onBack
     }
     block(this)
-}
-
-private fun RBuilder.currentResponse(body: Json,
-                                     finalResponse: Boolean) = child(CurrentResponse::class) {
-    attrs {
-        this.body = body
-        this.finalResponse = finalResponse
-    }
-}
-
-private fun RBuilder.nextRequest(body: Json,
-                                 targetSchema: JsObject,
-                                 onSubmit: (dynamic) -> Unit) = child(NextRequest::class) {
-    attrs {
-        this.body = body
-        this.targetSchema = targetSchema
-        this.onSubmit = onSubmit
-    }
 }
