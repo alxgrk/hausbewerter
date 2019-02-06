@@ -24,7 +24,7 @@ interface QuestionnaireState : RState {
 }
 
 interface QuestionnaireProps : RProps {
-    var qid: String
+    var id: String
 }
 
 class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, QuestionnaireState>() {
@@ -34,7 +34,7 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
     }
 
     override fun componentWillMount() {
-        val qid = props.match.params.qid
+        val qid = props.match.params.id
         questionRepo.getById(qid, ::onResponse)
     }
 
