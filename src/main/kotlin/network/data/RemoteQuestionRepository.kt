@@ -35,6 +35,7 @@ class RemoteQuestionRepository : QuestionRepository<AxiosResponse<String>> {
 
     override fun getById(id: String, onResponse: (AxiosResponse<String>) -> Any) = safetyRootCall {
         _root.getLinkByRel(Relation.BY_ID)
+                ?.also { it.href.replace("{id}", id) }
                 ?.axios<String>(_base)
                 ?.then(onResponse)
     }
