@@ -28,8 +28,8 @@ data class FormData(
         override var onError: (dynamic) -> Unit = {},
         override var validate: (dynamic, dynamic) -> dynamic = { _, e -> e },
         override var transformErrors: (dynamic) -> dynamic = { error ->
-            (error as Any).toJsonString().also {
-                if (it != "[]")
+            (error as Any).also {
+                if (it.toJsonString() != "[]")
                     console.log("Encaptured error: $it")
             }
         }) : FormProps
