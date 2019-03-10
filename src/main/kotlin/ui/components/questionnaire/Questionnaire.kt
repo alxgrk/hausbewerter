@@ -5,6 +5,7 @@ import di.questionRepo
 import kotlinext.js.JsObject
 import kotlinext.js.jsObject
 import libraries.react.router.RouteResultProps
+import network.schema.Link
 import network.schema.Schema
 import network.schema.getSchema
 import react.*
@@ -37,6 +38,17 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
         val qid = props.match.params.id
         console.log("Querying questionnaire with id '$qid'")
         questionRepo.getById(qid, ::onResponse)
+    }
+
+    override fun componentWillUnmount() {
+        // clean up state from any other questionnaire
+        setState {
+            body = json()
+            schema = Schema(mutableListOf())
+            onSubmit = {}
+            formData = jsObject { }
+            state.prevStates = IndicatingList()
+        }
     }
 
     private fun onResponse(response: AxiosResponse<String>) =
@@ -102,7 +114,7 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
 
     // using callback to ensure, state change has happened
     private fun rememberCurrentFormData(curFormData: JsObject, andThen: () -> Unit) = setState({
-        state.prevStates.current().formData = jsObject {  }
+        state.prevStates.current().formData = jsObject { }
         state.prevStates.current().formData = curFormData
         console.log("current form data remembered: ${state.prevStates.current().formData.toJsonString()}")
         it
