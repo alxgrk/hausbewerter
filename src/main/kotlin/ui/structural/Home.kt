@@ -34,7 +34,7 @@ class Home : RComponent<RProps, RState>() {
                 parallax(
                         ParallaxData(imgHouse)
                 )
-                cardRow(listOf(
+                cardRow(l = 2, m = 3, s = 12, cards = listOf(
                         CardData(title = "",
                                 reveal = createElement("p", object: RProps {} , bodyWelcome()),
                                 offset = "offset-m2 offset-l3",
@@ -73,7 +73,7 @@ class Home : RComponent<RProps, RState>() {
                             }
                         }
                 ))
-                cardRow(listOf(
+                cardRow(l = 2, m = 3, s = 12, cards = listOf(
                         CardData(title = "",
                                 reveal = createElement("p", object: RProps {} , bodyWelcome()),
                                 offset = "offset-m2 offset-l3",

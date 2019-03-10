@@ -61,6 +61,13 @@ fun RBuilder.card(data: CardData) = child(Card::class) {
     attrs {
         this.reveal = data.reveal ?: undefined
         this.title = data.title
+        this.actions = data.actions
+        this.className += when(data.size) {
+            CardSize.SMALL -> " small"
+            CardSize.MEDIUM -> " medium"
+            CardSize.LARGE -> " large"
+            CardSize.INDIFFERENT -> ""
+        }
     }
     if (data.headerData != null) cardTitle(data.headerData!!)
     data.child(this)

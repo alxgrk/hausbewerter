@@ -9,6 +9,8 @@ interface QuestionRepository<T> {
 
     fun create(onResponse: (T) -> Any)
 
+    fun getAll(onResponse: (T) -> Any)
+
     fun getById(id: String, onResponse: (T) -> Any)
 
     fun getNext(schema: Schema, body: dynamic = json(), onResponse: (T) -> Any)

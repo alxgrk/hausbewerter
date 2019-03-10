@@ -11,6 +11,9 @@ import react.RProps
 import react.RState
 
 interface CardRowProps : RProps {
+    var l: Int
+    var m: Int
+    var s: Int
     var cards: List<CardData>
 }
 
@@ -18,7 +21,7 @@ class CardRow(props: CardRowProps) : RComponent<CardRowProps, RState>(props) {
 
     override fun RBuilder.render() {
         val columns = props.cards.map {
-            ColData(l = 2, m = 3, s=12, className = "info-cards hoverable " + it.offset) {
+            ColData(l = props.l, m = props.m, s = props.s, className = "info-cards hoverable " + it.offset) {
                 card(it)
             }
         }
@@ -26,6 +29,9 @@ class CardRow(props: CardRowProps) : RComponent<CardRowProps, RState>(props) {
     }
 }
 
-fun RBuilder.cardRow(cards: List<CardData>) = child(CardRow::class) {
+fun RBuilder.cardRow(l: Int, m: Int, s: Int, cards: List<CardData>) = child(CardRow::class) {
+    attrs.l = l
+    attrs.m = m
+    attrs.s = s
     attrs.cards = cards
 }
