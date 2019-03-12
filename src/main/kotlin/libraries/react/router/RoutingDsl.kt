@@ -23,8 +23,9 @@ fun RBuilder.link(to: String, handler: RHandler<RProps>) = child(Link::class) {
     handler()
 }
 
-fun RBuilder.redirect(to: String) = child(Redirect::class) {
+fun RBuilder.redirect(to: String, push: Boolean = true) = child(Redirect::class) {
     attrs {
         this.to = to
+        this.push = push
     }
 }

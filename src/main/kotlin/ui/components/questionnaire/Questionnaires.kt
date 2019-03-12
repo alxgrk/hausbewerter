@@ -35,22 +35,6 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
                 questionnaires = members
             }
         }
-
-//        if (qid != null) {
-//            console.log("requesting questionnaire with id $qid")
-//            setState {
-//                redirectTo = "/questionnaire/$qid"
-//            }
-//        } else
-//            questionRepo.create { response ->
-//                val newId = response.data.toJson()["id"].toString()
-//                console.log("created new questionnaire with id $newId")
-//                lastQidRepo.saveLastQid(newId)
-//                setState {
-//                    redirectTo = "/questionnaire/$newId"
-//                }
-//                return@create response
-//            }
     }
 
     override fun RBuilder.render() {
@@ -66,7 +50,6 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
                     questionRepo.create { response ->
                         val newId = response.data.toJson()["id"].toString()
                         console.log("created new questionnaire with id $newId")
-                        // TODO link directly
                         setState {
                             redirectTo = "/questionnaire/$newId"
                         }
@@ -92,6 +75,15 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
                     cardRow(l = 6, m = 6, s = 12, cards = listOf(addingCard))
             }
 
+        }
+
+        if (state.redirectTo !== undefined && state.redirectTo !== "") {
+            console.log("redirecting to ${state.redirectTo}")
+            val to = state.redirectTo
+            setState {
+                redirectTo = ""
+            }
+            redirect(to)
         }
     }
 
