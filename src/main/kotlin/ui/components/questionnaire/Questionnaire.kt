@@ -42,14 +42,16 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
 
     override fun componentWillUnmount() {
         // clean up state from any other questionnaire
-        setState {
+        clearState()
+    }
+
+    private fun clearState() = setState {
             body = json()
             schema = Schema(mutableListOf())
             onSubmit = {}
             formData = jsObject { }
             state.prevStates = IndicatingList()
         }
-    }
 
     private fun onResponse(response: AxiosResponse<String>) =
             setState {
@@ -112,6 +114,13 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
         }
     }
 
+    private fun onNew(qid: String) {
+        clearState()
+
+        console.log("Querying questionnaire with id '$qid'")
+        questionRepo.getById(qid, ::onResponse)
+    }
+
     // using callback to ensure, state change has happened
     private fun rememberCurrentFormData(curFormData: JsObject, andThen: () -> Unit) = setState({
         state.prevStates.current().formData = jsObject { }
@@ -121,6 +130,6 @@ class Questionnaire : RComponent<RouteResultProps<QuestionnaireProps>, Questionn
     }, andThen)
 
     override fun RBuilder.render() {
-        questionCard(state.body, state.schema, state.formData, state.onSubmit, ::onBack) { }
+        questionCard(state.body, state.schema, state.formData, state.onSubmit, ::onBack, ::onNew) { }
     }
 }

@@ -14,7 +14,8 @@ data class Link(
         val rel: String,
         var href: String,
         val method: Method,
-        val targetSchema: JsObject
+        val targetSchema: JsObject,
+        val formerData: JsObject
 )
 
 enum class Method {
@@ -43,11 +44,16 @@ fun Schema.getTargetSchemaByRel(rel: Relation): JsObject? = links
         .map { it.targetSchema }
         .firstOrNull()
 
+fun Schema.getFormerDataByRel(rel: Relation): JsObject? = links
+        .filter { it.rel == rel.toString() }
+        .map { it.formerData }
+        .firstOrNull()
+
 
 fun Json.getSchema(): Schema = this["_schema"].asDynamic()
         .links.iterator()
         .asSequence()
-        .map { Link(it.rel, it.href, it.method, it.targetSchema) }
+        .map { Link(it.rel, it.href, it.method, it.targetSchema, it.formerData) }
         .fold(Schema(mutableListOf())) { s, link ->
             s.links.add(link)
             s

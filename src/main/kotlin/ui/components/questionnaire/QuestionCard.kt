@@ -1,6 +1,7 @@
 package ui.components.questionnaire
 
 import di.lastQidRepo
+import di.questionRepo
 import kotlinext.js.JsObject
 import kotlinext.js.Object
 import kotlinx.html.DIV
@@ -15,10 +16,8 @@ import libraries.react.material.data.RowData
 import libraries.react.material.icon
 import libraries.react.material.row
 import libraries.react.router.link
-import network.schema.Relation
-import network.schema.Schema
-import network.schema.getLinkByRel
-import network.schema.getTargetSchemaByRel
+import libraries.react.router.redirect
+import network.schema.*
 import react.*
 import react.dom.*
 import ui.components.various.iconButton
@@ -33,6 +32,7 @@ interface QuestionCardProps : RProps {
     var formData: JsObject
     var onSubmit: (dynamic) -> Unit
     var onBack: (JsObject) -> Unit
+    var onNew: (String) -> Unit
 }
 
 interface QuestionCardState : RState {
@@ -80,10 +80,11 @@ class QuestionCard : RComponent<QuestionCardProps, QuestionCardState>() {
 
                             ColData(s = 10, className = "question-card-body") {
                                 val targetSchema = props.schema.getTargetSchemaByRel(Relation.NEXT)
+                                val formerData = props.schema.getFormerDataByRel(Relation.NEXT)
 
                                 currentResponse(targetSchema == null)
                                 if (targetSchema != null)
-                                    nextRequest(targetSchema)
+                                    nextRequest(targetSchema, formerData)
 
                             },
 
@@ -98,13 +99,23 @@ class QuestionCard : RComponent<QuestionCardProps, QuestionCardState>() {
                 }
             })
         }
+
     }
 
     private fun onFormDataChanged(data: dynamic) = setState {
         formData = formDataToJsObject(data)
     }
 
-    private fun RBuilder.nextRequest(targetSchema: JsObject) {
+    private fun RBuilder.nextRequest(targetSchema: JsObject, formerData: JsObject?) {
+
+        val formData =
+                if (Object.getOwnPropertyNames(state.formData).isEmpty() && formerData != null) {
+                    console.log("using former data acquired from response: ${formerData.toJsonString()}")
+                    formerData
+                } else {
+                    console.log("using local data entered before: ${state.formData.toJsonString()}")
+                    state.formData
+                }
 
         div("question-card-next-request") {
             h3 { +nextRequestHeader() }
@@ -112,7 +123,7 @@ class QuestionCard : RComponent<QuestionCardProps, QuestionCardState>() {
                     onSubmit = props.onSubmit,
                     onChange = ::onFormDataChanged,
                     schema = targetSchema,
-                    formData = state.formData))
+                    formData = formData))
         }
 
     }
@@ -142,11 +153,15 @@ class QuestionCard : RComponent<QuestionCardProps, QuestionCardState>() {
 
     private fun RDOMBuilder<DIV>.displayFinalFooter() {
         div("question-card-final-result-footer") {
-            link("/questionnaire") {
-                button(newQuestionnaire()) {}
+            button(newQuestionnaire()) {
+                questionRepo.create { response ->
+                    val newId = response.data.toJson()["id"].toString()
+                    console.log("created new questionnaire with id $newId")
+                    props.onNew(newId)
+                }
             }
-            link("/") {
-                button(backToHome()) {}
+            link("/questionnaire") {
+                button(backToOverview()) {}
             }
         }
     }
@@ -172,6 +187,7 @@ fun RBuilder.questionCard(body: Json,
                           formData: JsObject,
                           onSubmit: (dynamic) -> Unit,
                           onBack: (JsObject) -> Unit,
+                          onNew: (String) -> Unit,
                           block: RHandler<RProps>) = child(QuestionCard::class) {
     attrs {
         this.body = body
@@ -179,6 +195,7 @@ fun RBuilder.questionCard(body: Json,
         this.formData = formData
         this.onSubmit = onSubmit
         this.onBack = onBack
+        this.onNew = onNew
     }
     block(this)
 }
