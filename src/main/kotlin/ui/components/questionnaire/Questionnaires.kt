@@ -58,15 +58,20 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
                 }
             }
 
+            if (state.questionnaires.isEmpty()) {
+                cardRow(l = 6, m = 6, s = 12, cards = listOf(addingCard))
+            }
+
             state.questionnaires.forEachIndexed { index, member ->
 
                 // every second time and only if there is a next card
                 if (index % 2 == 0) {
 
-                    val secondCard = if ((index + 1) < state.questionnaires.size)
-                        memberToCard(state.questionnaires[index + 1])
-                    else
-                        addingCard
+                    val secondCard =
+                            if ((index + 1) < state.questionnaires.size)
+                                memberToCard(state.questionnaires[index + 1])
+                            else
+                                addingCard
 
                     val members = listOf(memberToCard(member), secondCard)
                     cardRow(l = 6, m = 6, s = 12, cards = members)
