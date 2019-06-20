@@ -23,6 +23,11 @@
     margin-right: auto;
 }
 
+.questionnaire-overview-card {
+    text-align: left;
+}
+
+
 .question-card-to-left i,
 .question-card-to-right i {
     min-height: 1em;
