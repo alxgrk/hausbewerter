@@ -6,6 +6,15 @@
     margin-top: 2em;
 }
 
+.card .card-content .card-title {
+    text-transform: uppercase;
+}
+
+.card .card-action 
+    a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+    color: #255D66;
+}
+
 /*.info-cards .card-content i {
     display: none;
 }*/

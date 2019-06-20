@@ -61,7 +61,7 @@ fun RBuilder.card(data: CardData) = child(Card::class) {
     attrs {
         this.reveal = data.reveal ?: undefined
         this.title = data.title
-        this.actions = data.actions
+        this.actions = data.actions ?: undefined
         this.className += when(data.size) {
             CardSize.SMALL -> " small"
             CardSize.MEDIUM -> " medium"

@@ -1,15 +1,12 @@
 package ui.components.questionnaire
 
 import di.questionRepo
+import kotlinext.js.Object
 import kotlinext.js.js
-import kotlinext.js.jsObject
 import libraries.react.material.data.CardData
 import libraries.react.material.data.CardSize
 import libraries.react.router.Link
-import libraries.react.router.LinkProps
-import libraries.react.router.link
 import libraries.react.router.redirect
-import org.w3c.dom.events.Event
 import react.*
 import react.dom.*
 import ui.components.cards.cardRow
@@ -46,7 +43,7 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
             // last card for adding a questionnaire
             val addingCard = CardData(title = addNewQuestionnaire(),
                     size = CardSize.SMALL) {
-                iconButton("add", "center medium") {
+                iconButton(iconText = "add", className = "center medium") {
                     questionRepo.create { response ->
                         val newId = response.data.toJson()["id"].toString()
                         console.log("created new questionnaire with id $newId")
@@ -98,7 +95,7 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
             createElement(
                     Link::class.js,
                     js { to = "/questionnaire/$id" }.unsafeCast<RProps>(),
-                    showQuestionnaireDetails()
+                    edit()
             )
         }
 
@@ -106,8 +103,27 @@ class Questionnaires : RComponent<RProps, QuestionnairesState>() {
                 title = member["name"].toString(),
                 size = CardSize.SMALL,
                 actions = arrayOf(action)) {
-            p { +member.toJsonString() }
+
+            if (member["state"] !== undefined) {
+                p("questionnaire-overview-card card-panel") {
+                    +"Status: "
+                    toStateBagde(member["state"].toString())
+                }
+            }
+            if (member["gesamtwert"] !== undefined) {
+                p("questionnaire-overview-card card-panel") {
+                    +"Gesamtwert: "
+                    toStateBagde(member["gesamtwert"].toString())
+                }
+            }
+
         }
     }
 
+    private fun RBuilder.toStateBagde(property: String?) =
+            when (property) {
+                "OPEN" -> span("status-badge badge blue lighten-2 white-text") { +stateOpen() }
+                "FINISHED" -> span("status-badge badge green lighten-2 white-text") { +stateFinished() }
+                else -> span("status-badge badge grey lighten-1 white-text") { +stateUnknown() }
+            }
 }

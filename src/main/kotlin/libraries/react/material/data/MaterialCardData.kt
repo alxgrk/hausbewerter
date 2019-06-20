@@ -13,7 +13,7 @@ interface CardProps : WithClassName {
     var title: String
     var reveal: ReactElement?
     var offset: String
-    var actions: Array<ReactElement>
+    var actions: Array<ReactElement>?
     var header: CardTitle?
 }
 
@@ -33,7 +33,7 @@ data class CardData(
         override var title: String,
         override var className: String? = "",
         override var reveal: ReactElement? = null,
-        override var actions: Array<ReactElement> = emptyArray(),
+        override var actions: Array<ReactElement>? = null,
         override var offset: String = "",
         override var header: CardTitle? = null,
         var headerData: CardTitleData? = null,
